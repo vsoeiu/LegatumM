@@ -1,0 +1,16 @@
+ECHO est� activado.
+# Archivos de entorno virtual
+env/
+venv/
+
+# Archivos de logs (todos los que terminan en .log)
+*.log
+legatum_errors.log
+legatum_server.log
+
+# Caché de Python
+__pycache__/
+*.pyc
+
+# Archivos generados por macOS
+.DS_Store
