@@ -485,5 +485,5 @@ def genre_detail_view(nombre_genero):
     return render_template('generos_detalle.html', genero=nombre_genero, artistas=data)
 
 if __name__ == '__main__':
-    print("🚀 LEGATUM SYSTEM v12.0 ONLINE - http://127.0.0.1:5000")
-    app.run(debug=True, port=5000)
+    print("🚀 LEGATUM SYSTEM v12.0 ONLINE - http://127.0.0.1:8080")
+    app.run(debug=True, port=8080)
