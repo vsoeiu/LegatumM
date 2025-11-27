@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explora el espectro musical por géneros en Legatum.">
+    <meta name="theme-color" content="#020202">
+    <title>Géneros | Legatum</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           1. ARQUITECTURA BASE (V8 INTEGRATED)
+           ========================================================================== */
+        :root {
+            /* PALETA */
+            --color-bg-master: #020202;
+            --color-bg-card: #0f0f0f;
+            --color-accent-light: #c20000;    
+            --color-accent-main: #800000;     
+            --color-accent-vivid: #ff1a1a; 
+            --color-accent-glow: rgba(194, 0, 0, 0.45);
+            --color-text-primary: #ffffff;
+            --color-text-secondary: #a3a3a3;
+            --color-text-muted: #555555;
+            --border-subtle: 1px solid rgba(255, 255, 255, 0.08);
+            --shadow-soft: 0 10px 30px -5px rgba(0, 0, 0, 0.8);
+            --shadow-pop: 0 20px 40px -5px rgba(255, 26, 26, 0.2); 
+            
+            /* FUENTES Y ANIMACIONES */
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --ease-smooth: cubic-bezier(0.25, 0.8, 0.25, 1);
+            --ease-elegant: cubic-bezier(0.19, 1, 0.22, 1);
+            --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --duration-fast: 0.3s;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--color-bg-master); color: var(--color-text-primary);
+            font-family: var(--font-body); min-height: 100vh; display: flex; flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* FONDOS */
+        .ambient-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% -20%, #1a0000 0%, #020202 80%); z-index: -3; pointer-events: none; }
+        .star-field { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; overflow: hidden; }
+        .stars-1 { width: 1px; height: 1px; background: transparent; box-shadow: 147px 778px #FFF , 1169px 635px #FFF , 1136px 240px #FFF , 1737px 152px #FFF , 1372px 718px #FFF , 1802px 898px #FFF , 457px 399px #FFF , 1253px 787px #FFF; animation: animStar 100s linear infinite; }
+        @keyframes animStar { from { transform: translateY(0px); } to { transform: translateY(-2000px); } }
+
+        /* ==========================================================================
+           2. NAVBAR (ESTILO SINCRONIZADO)
+           ========================================================================== */
+        .navbar {
+            position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center;
+            padding: 1.2rem 5%; background: rgba(2, 2, 2, 0.9); backdrop-filter: blur(20px);
+            border-bottom: var(--border-subtle);
+        }
+        
+        .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .brand-text { 
+            font-family: var(--font-heading); font-weight: 800; font-size: 1.5rem; 
+            letter-spacing: 4px; color: var(--color-text-primary); text-transform: uppercase;
+        }
+        .brand-text span { color: var(--color-accent-light); }
+        
+        .nav-menu { display: flex; gap: 35px; list-style: none; }
+        .nav-link { 
+            text-decoration: none; color: var(--color-text-secondary); font-size: 0.8rem; 
+            font-weight: 600; text-transform: uppercase; letter-spacing: 2px; position: relative; 
+            padding: 5px 0; transition: color 0.3s; 
+        }
+        .nav-link:hover, .nav-link.active { color: var(--color-text-primary); }
+        .nav-link::after {
+            content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px;
+            background: var(--color-accent-light); transition: width var(--duration-fast) var(--ease-elegant);
+        }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+        /* BUSCADOR ROUNDED */
+        .header-search { position: relative; width: 280px; }
+        .header-search input {
+            width: 100%; background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 45px 12px 20px; border-radius: 30px;
+            color: var(--color-text-primary); font-size: 0.9rem;
+            transition: all 0.3s var(--ease-elegant); font-family: var(--font-body);
+        }
+        .header-search input:focus {
+            border-color: var(--color-accent-vivid); background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 15px rgba(255, 26, 26, 0.2);
+        }
+        .search-btn-round {
+            position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+            width: 34px; height: 34px; background: var(--color-accent-vivid);
+            border-radius: 50%; border: none; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--color-text-primary); transition: all 0.3s var(--ease-bounce);
+            box-shadow: 0 0 10px rgba(255, 26, 26, 0.4);
+        }
+        .search-btn-round:hover { transform: translateY(-50%) scale(1.15); background: #ff3333; }
+
+        /* ==========================================================================
+           3. CONTENIDO PRINCIPAL
+           ========================================================================== */
+        .hero-section { padding: 6rem 2rem 4rem; text-align: center; }
+        .hero-overline { display: block; font-family: var(--font-heading); font-size: 0.85rem; color: var(--color-accent-vivid); text-transform: uppercase; letter-spacing: 4px; margin-bottom: 1rem; font-weight: 700; }
+        .hero-title { 
+            font-family: var(--font-heading); font-size: 4rem; font-weight: 900; 
+            color: var(--color-text-primary); margin: 0; letter-spacing: 2px; 
+            background: linear-gradient(180deg, #ffffff 10%, #777777 100%);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent; color: transparent;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        .divider-line { width: 1px; height: 60px; background: linear-gradient(to bottom, transparent, var(--color-accent-vivid), transparent); margin: 3rem auto 0; }
+
+        /* Main Container */
+        .gallery-container { max-width: 1400px; margin: 0 auto 6rem; padding: 0 2rem; }
+        
+        /* Buscador Local */
+        .controls-panel { margin-bottom: 3rem; text-align: center; }
+        .local-search-box { position: relative; width: 100%; max-width: 400px; margin: 0 auto; }
+        .local-search-input { width: 100%; background: rgba(255,255,255,0.05); border: var(--border-subtle); padding: 14px 20px 14px 50px; border-radius: 30px; color: var(--color-text-primary); font-size: 1rem; transition: all 0.3s; }
+        .local-search-input:focus { background: rgba(255,255,255,0.08); border-color: var(--color-accent-vivid); }
+        .local-search-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--color-text-secondary); }
+
+        /* Grid */
+        .genre-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+
+        /* ==========================================================================
+           4. TARJETA DE GÉNERO
+           ========================================================================== */
+        .genre-card {
+            position: relative; height: 320px; border-radius: 20px; overflow: hidden; 
+            text-decoration: none; box-shadow: var(--shadow-soft); border: var(--border-subtle);
+            transition: all 0.4s var(--ease-smooth); 
+            opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s forwards;
+            animation-delay: var(--card-delay, 0s);
+            display: block; /* Aseguramos que sea un bloque para las animaciones */
+        }
+
+        .genre-card:hover {
+            transform: translateY(-10px) scale(1.02); 
+            box-shadow: var(--shadow-pop); 
+            border-color: var(--color-accent-vivid); 
+        }
+
+        .genre-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s var(--ease-smooth); }
+        .genre-card:hover .genre-img { transform: scale(1.1); }
+
+        .card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 10%, rgba(0,0,0,0.3) 60%, transparent 100%); z-index: 1; }
+
+        .card-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 1.5rem; z-index: 2; }
+
+        .genre-name {
+            font-family: var(--font-heading); font-weight: 900; font-size: 1.8rem;
+            color: var(--color-text-primary); margin: 0; text-transform: uppercase; letter-spacing: 1px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+        
+        /* Footer y Animaciones */
+        footer { text-align: center; padding: 3rem 2rem; margin-top: auto; border-top: var(--border-subtle); color: #555; font-size: 0.8rem; letter-spacing: 1px; }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        .no-results { display: none; text-align: center; padding: 50px; color: #777; grid-column: 1/-1; }
+
+        /* Responsive */
+        @media (max-width: 1200px) { .genre-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 900px) { .genre-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .genre-grid { grid-template-columns: 1fr; } .hero-title { font-size: 3rem; } }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-backdrop"></div>
+    <div class="star-field" aria-hidden="true"><div class="stars-1"></div></div>
+
+    <nav class="navbar">
+        <a href="/" class="brand">
+            <div class="brand-text">LEGATUM<span>.</span></div>
+        </a>
+        <ul class="nav-menu">
+            <li><a href="/" class="nav-link">Inicio</a></li>
+            <li><a href="/artistas" class="nav-link">Descubrir</a></li>
+            <li><a href="/generos" class="nav-link active">Géneros</a></li>
+        </ul>
+        <form class="header-search" method="POST" action="/">
+            <input type="text" name="artista" placeholder="Busca tu sonido..." aria-label="Buscar">
+            <button type="submit" class="search-btn-round" aria-label="Buscar">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </button>
+        </form>
+    </nav>
+
+    <header class="hero-section">
+        <span class="hero-overline">ESPECTRO SONORO</span>
+        <h1 class="hero-title">GÉNEROS MAESTROS</h1>
+        <div class="divider-line"></div>
+    </header>
+
+    <main class="gallery-container">
+        <section class="controls-panel">
+            <div class="local-search-box">
+                <svg class="local-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="filterInput" class="local-search-input" placeholder="Filtrar géneros..." autocomplete="off">
+            </div>
+            </section>
+
+        <div id="genreGrid" class="genre-grid">
+            {% if generos %}
+                {% for gen in generos %}
+                <a href="/generos/{{ gen.nombre }}" 
+                   class="genre-card genre-item" 
+                   data-name="{{ gen.nombre | replace('RnB', 'R&B') }}"
+                   style="--card-delay: {{ loop.index0 * 0.1 }}s;">
+                    
+                    <img src="{{ gen.imagen }}" 
+                         alt="{{ gen.nombre }}" 
+                         class="genre-img" 
+                         loading="lazy"
+                         onerror="this.src='https://cdn.pixabay.com/photo/2018/04/18/18/56/user-3331257_1280.png'">
+                    
+                    <div class="card-overlay"></div>
+
+                    <div class="card-info">
+                        <h2 class="genre-name">{{ gen.nombre | replace("RnB", "R&B") }}</h2>
+                    </div>
+                </a>
+                {% endfor %}
+            {% else %}
+                <div class="no-results" style="display:block;"><h3>No hay géneros disponibles.</h3></div>
+            {% endif %}
+        </div>
+        <div id="noResults" class="no-results"><h3>Sin coincidencias.</h3></div>
+    </main>
+
+    <footer><p>© 2025 Legatum Music System.</p></footer>
+
+    <script>
+        // Funcionalidad del Buscador
+        const input = document.getElementById('filterInput');
+        const items = Array.from(document.querySelectorAll('.genre-item'));
+        const noRes = document.getElementById('noResults');
+
+        input.addEventListener('keyup', (e) => {
+            const val = e.target.value.toLowerCase();
+            let count = 0;
+            items.forEach(item => {
+                if(item.dataset.name.toLowerCase().includes(val)) {
+                    item.style.display = 'block'; count++;
+                } else { item.style.display = 'none'; }
+            });
+            noRes.style.display = (count === 0) ? 'block' : 'none';
+        });
+    </script>
+</body>
+</html>

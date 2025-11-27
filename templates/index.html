@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Legatum Music System - La plataforma definitiva de búsqueda musical.">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="author" content="Legatum Dev Team">
+    <title>Legatum - Búsqueda Musical Enterprise</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           1. SISTEMA DE DISEÑO "DEEP SPACE TITANIUM"
+           ========================================================================== */
+        :root {
+            /* --- Paleta de Fondo --- */
+            --bg-void: #050505;         /* Negro absoluto */
+            --bg-nebula: #1a0505;       /* Tono rojizo muy oscuro */
+            --bg-overlay: rgba(0,0,0,0.8);
+            
+            /* --- Superficies de Vidrio (Glassmorphism 4.0) --- */
+            --glass-surface: rgba(20, 10, 10, 0.65);
+            --glass-surface-hover: rgba(35, 15, 15, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-highlight: rgba(255, 255, 255, 0.15);
+            --glass-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+            
+            /* --- Acentos de Neón (Identidad de Marca) --- */
+            --neon-primary: #ff1a1a;    /* Rojo Legatum */
+            --neon-secondary: #800000;  /* Sangre */
+            --neon-glow: 0 0 25px rgba(255, 26, 26, 0.5);
+            --neon-text-glow: 0 0 10px rgba(255, 255, 255, 0.3);
+            
+            /* --- Tipografía --- */
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-tertiary: #888888;
+            
+            /* --- Estados del Sistema --- */
+            --state-success: #1DB954;   /* Spotify Green */
+            --state-error: #ff3333;     /* Error Red */
+            --state-warning: #ffcc00;   /* Warning Yellow */
+            --state-info: #3399ff;      /* Info Blue */
+            
+            /* --- Dimensiones y Físicas --- */
+            --radius-xl: 40px;
+            --radius-lg: 30px;
+            --radius-md: 20px;
+            --radius-sm: 12px;
+            --anim-fast: 0.2s cubic-bezier(0.2, 0, 0, 1);
+            --anim-smooth: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --anim-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        /* ==========================================================================
+           2. RESETEO Y ESTRUCTURA BASE
+           ========================================================================== */
+        * { 
+            box-sizing: border-box; 
+            outline: none;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-void);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        /* ==========================================================================
+           3. FONDO ANIMADO PARALLAX (3 CAPAS)
+           ========================================================================== */
+        .star-field {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none;
+            background: radial-gradient(circle at center, #2a0000 0%, #000000 100%);
+            overflow: hidden;
+        }
+
+        /* Capa 1: Estrellas Lejanas (Lentas) */
+        .stars-1 {
+            width: 2px; height: 2px; background: transparent;
+            box-shadow: 100px 200px #fff, 400px 500px #fff, 800px 100px #fff, 1200px 900px #fff;
+            animation: animStar 100s linear infinite;
+        }
+        /* Capa 2: Estrellas Medias */
+        .stars-2 {
+            width: 3px; height: 3px; background: transparent;
+            box-shadow: 200px 300px #ccc, 500px 100px #ccc, 900px 600px #ccc;
+            animation: animStar 50s linear infinite;
+        }
+        /* Capa 3: Estrellas Cercanas (Rápidas) */
+        .stars-3 {
+            width: 4px; height: 4px; background: transparent;
+            box-shadow: 150px 800px #aaa, 600px 200px #aaa;
+            animation: animStar 25s linear infinite;
+        }
+
+        @keyframes animStar {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-2000px); }
+        }
+
+        /* Scrollbar Invisible pero funcional (Estilo WebKit) */
+        ::-webkit-scrollbar { width: 8px; background: transparent; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.15); border-radius: 4px;
+            border: 2px solid transparent; background-clip: content-box;
+        }
+        ::-webkit-scrollbar-thumb:hover { background-color: rgba(255,255,255,0.4); }
+
+        /* ==========================================================================
+           4. BARRA DE NAVEGACIÓN "COMMAND CENTER"
+           ========================================================================== */
+        .navbar {
+            background: rgba(5, 0, 0, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.4s ease;
+        }
+
+        /* Logotipo */
+        .brand-wrapper {
+            display: flex; align-items: center; gap: 15px; text-decoration: none;
+            transition: var(--anim-fast);
+        }
+        .brand-wrapper:hover { transform: scale(1.02); }
+
+        .brand-logo {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 2rem;
+            letter-spacing: 3px;
+            color: white;
+            text-transform: uppercase;
+            position: relative;
+        }
+        
+        .brand-dot {
+            color: var(--neon-primary);
+            text-shadow: 0 0 15px var(--neon-primary);
+            font-size: 2.5rem;
+            line-height: 0;
+        }
+
+        /* Menú Central */
+        .nav-menu {
+            display: flex; gap: 10px;
+            background: rgba(255,255,255,0.03);
+            padding: 8px;
+            border-radius: 50px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .nav-item {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--anim-fast);
+            padding: 10px 25px;
+            border-radius: 30px;
+        }
+
+        .nav-item:hover {
+            color: white;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .nav-item.active {
+            color: white;
+            background: var(--neon-primary);
+            box-shadow: var(--neon-glow);
+        }
+
+        /* Buscador Global */
+        .header-search { position: relative; width: 350px; }
+
+        .search-input {
+            width: 100%;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 14px 55px 14px 25px;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: var(--anim-smooth);
+        }
+
+        .search-input:focus {
+            border-color: var(--neon-primary);
+            background: rgba(0,0,0,0.8);
+            box-shadow: 0 0 25px rgba(255,26,26,0.1);
+            width: 100%;
+        }
+
+        .search-btn-icon {
+            position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+            width: 40px; height: 40px;
+            background: var(--neon-primary);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            border: none; cursor: pointer; color: white;
+            transition: var(--anim-bounce);
+        }
+        .search-btn-icon:hover { transform: translateY(-50%) scale(1.1); box-shadow: var(--neon-glow); }
+
+        /* ==========================================================================
+           5. LAYOUT PRINCIPAL (DASHBOARD GRID)
+           ========================================================================== */
+        .main-container {
+            max-width: 1700px;
+            margin: 50px auto;
+            padding: 0 40px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 420px 1fr; /* Sidebar Ancha - Contenido Flexible */
+            gap: 50px;
+            align-items: start;
+            opacity: 0;
+            animation: fadeUp 1s var(--anim-smooth) forwards;
+        }
+
+        @keyframes fadeUp { 
+            from { opacity: 0; transform: translateY(60px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        /* Estilos Base para Paneles de Vidrio */
+        .panel {
+            background: var(--glass-surface);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--glass-shadow);
+            overflow: hidden;
+            transition: var(--anim-smooth);
+            position: relative;
+        }
+        
+        /* Efecto de brillo sutil en hover */
+        .panel::after {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: var(--radius-lg);
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
+            pointer-events: none;
+        }
+
+        /* ==========================================================================
+           6. SIDEBAR IZQUIERDA (PERFIL ARTISTA)
+           ========================================================================== */
+        .sidebar-profile {
+            position: sticky;
+            top: 130px; /* Sticky behavior */
+            padding: 50px 40px;
+            text-align: center;
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        /* Avatar con Anillo Animado (CORREGIDO ERROR DE MASK) */
+        .avatar-container {
+            width: 240px; height: 240px;
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .avatar-ring {
+            position: absolute; top: -6px; left: -6px; right: -6px; bottom: -6px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            background: linear-gradient(45deg, var(--neon-primary), transparent, var(--neon-secondary)) border-box;
+            
+            /* --- CORRECCIÓN DEL ERROR DE CSS (Line 267) --- */
+            /* Se define primero la propiedad estándar, luego la propietaria */
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            
+            animation: rotateRing 8s linear infinite;
+        }
+
+        .artist-avatar {
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 8px solid var(--bg-void);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .avatar-container:hover .artist-avatar { transform: scale(1.08); }
+
+        @keyframes rotateRing { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* Título Artista */
+        .artist-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 2.8rem;
+            line-height: 1;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            background: linear-gradient(180deg, #ffffff, #aaaaaa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
+        }
+
+        /* Botón Compartir */
+        .btn-share {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white; padding: 8px 20px; border-radius: 20px;
+            font-size: 0.8rem; cursor: pointer; transition: 0.3s;
+            display: flex; align-items: center; gap: 8px; margin-bottom: 30px;
+        }
+        .btn-share:hover { background: var(--neon-primary); border-color: var(--neon-primary); }
+
+        /* Grid de Estadísticas */
+        .stats-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+            width: 100%; margin: 10px 0 30px;
+        }
+
+        .stat-box {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            display: flex; flex-direction: column; align-items: center;
+            transition: 0.3s; position: relative; overflow: hidden;
+        }
+        .stat-box:hover { background: rgba(255,255,255,0.05); border-color: var(--glass-highlight); transform: translateY(-5px); }
+
+        .stat-number { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.3rem; color: white; }
+        .stat-label { font-size: 0.65rem; text-transform: uppercase; color: var(--text-tertiary); letter-spacing: 1.5px; margin-top: 8px; }
+
+        /* Badges */
+        .tags-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 30px; }
+        .genre-badge {
+            background: rgba(255,26,26,0.08); border: 1px solid rgba(255,26,26,0.2);
+            color: #ffcccc; padding: 8px 16px; border-radius: 20px;
+            font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.5px; transition: 0.3s;
+        }
+        .genre-badge:hover { background: var(--neon-primary); color: white; border-color: var(--neon-primary); }
+
+        /* Indicador de Fuente */
+        .source-badge {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 10px 20px; border-radius: 15px;
+            font-size: 0.85rem; font-weight: 700; margin-bottom: 25px;
+        }
+        .src-spotify { background: rgba(29, 185, 84, 0.15); border: 1px solid rgba(29, 185, 84, 0.4); color: #1DB954; }
+        .src-lastfm { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: #ffaaaa; }
+        .src-emergency { background: rgba(255, 204, 0, 0.15); border: 1px solid rgba(255, 204, 0, 0.4); color: #ffcc00; }
+
+        /* ==========================================================================
+           7. PANEL DERECHO (CONTENIDO PRINCIPAL)
+           ========================================================================== */
+        .content-panel { padding: 50px; min-height: 800px; }
+
+        /* Navegación de Pestañas */
+        .tabs-header {
+            display: flex; gap: 30px; margin-bottom: 40px;
+            border-bottom: 2px solid rgba(255,255,255,0.05); padding-bottom: 15px;
+        }
+
+        .tab-btn {
+            background: none; border: none; color: var(--text-tertiary);
+            font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.2rem;
+            text-transform: uppercase; cursor: pointer; padding: 10px 10px;
+            position: relative; transition: 0.3s;
+        }
+        
+        .tab-btn:hover { color: white; }
+        .tab-btn.active { color: white; }
+        .tab-btn.active::after {
+            content: ''; position: absolute; bottom: -17px; left: 0; width: 100%; height: 4px;
+            background: var(--neon-primary); box-shadow: var(--neon-glow); border-radius: 2px 2px 0 0;
+        }
+
+        /* Animación de Cambio de Pestaña */
+        .tab-content { display: none; opacity: 0; transform: translateY(20px); transition: 0.5s; }
+        .tab-content.active { display: block; opacity: 1; transform: translateY(0); animation: tabSlide 0.5s var(--anim-smooth); }
+        @keyframes tabSlide { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- PESTAÑA 1: MÚSICA --- */
+        .section-headline { font-size: 1.5rem; color: white; margin-bottom: 25px; font-weight: 700; display:flex; align-items:center; gap:10px; }
+        
+        .tracks-list { display: flex; flex-direction: column; gap: 15px; }
+
+        .track-row {
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(255,255,255,0.02); padding: 20px 30px;
+            border-radius: 20px; border: 1px solid transparent;
+            transition: var(--anim-fast); cursor: default;
+        }
+        .track-row:hover {
+            background: rgba(255,255,255,0.06); border-color: var(--glass-highlight);
+            transform: scale(1.01); box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .track-left { display: flex; align-items: center; gap: 25px; flex: 1; }
+        .track-index { font-family: 'Montserrat', sans-serif; font-weight: 900; color: var(--text-tertiary); font-size: 1.2rem; width: 40px; }
+        
+        /* Visualizador de Audio (Barras animadas) */
+        .visualizer { display: flex; gap: 3px; align-items: flex-end; height: 20px; width: 20px; display: none; }
+        .track-row:hover .visualizer { display: flex; }
+        .track-row:hover .track-index { display: none; }
+        .v-bar { width: 4px; background: var(--neon-primary); animation: soundWave 0.5s infinite alternate; }
+        .v-bar:nth-child(1) { height: 60%; animation-delay: 0.1s; }
+        .v-bar:nth-child(2) { height: 30%; animation-delay: 0.2s; }
+        .v-bar:nth-child(3) { height: 80%; animation-delay: 0.3s; }
+        @keyframes soundWave { 0% { height: 20%; } 100% { height: 100%; } }
+
+        .track-info h4 { font-size: 1.1rem; color: white; margin-bottom: 5px; font-weight: 600; }
+        .track-info span { font-size: 0.85rem; color: var(--text-tertiary); }
+
+        .track-actions { display: flex; gap: 12px; }
+        .action-btn {
+            width: 45px; height: 45px; border-radius: 50%; border: none;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: 0.3s; color: white;
+        }
+        .btn-spotify { background: rgba(29, 185, 84, 0.2); color: #1DB954; }
+        .btn-spotify:hover { background: #1DB954; color: white; box-shadow: 0 0 20px rgba(29,185,84,0.5); transform: scale(1.1); }
+        .btn-youtube { background: rgba(255, 0, 0, 0.2); color: #ff4444; }
+        .btn-youtube:hover { background: #ff0000; color: white; box-shadow: 0 0 20px rgba(255,0,0,0.5); transform: scale(1.1); }
+
+        /* Video Player Estilizado */
+        .video-cinema {
+            margin-top: 50px; background: #000; padding: 10px;
+            border-radius: var(--radius-lg); box-shadow: 0 40px 80px rgba(0,0,0,0.9);
+            border: 1px solid rgba(255,255,255,0.15); position: relative;
+        }
+        .video-label {
+            padding: 15px 25px; font-weight: 800; color: #666; text-transform: uppercase;
+            font-size: 0.8rem; display: flex; align-items: center; gap: 12px; letter-spacing: 1px;
+        }
+        .rec-dot { width: 10px; height: 10px; background: red; border-radius: 50%; animation: pulseRed 1.5s infinite; }
+        @keyframes pulseRed { 0% { box-shadow: 0 0 0 0 rgba(255,0,0,0.7); } 70% { box-shadow: 0 0 0 10px rgba(255,0,0,0); } 100% { box-shadow: 0 0 0 0 rgba(255,0,0,0); } }
+
+        .video-iframe { width: 100%; height: 450px; border-radius: 20px; border: none; }
+
+        /* --- PESTAÑA 2: BIOGRAFÍA --- */
+        .bio-wrapper {
+            background: rgba(0,0,0,0.3); padding: 40px;
+            border-radius: var(--radius-md); line-height: 1.9;
+            font-size: 1.1rem; color: #e0e0e0; text-align: justify;
+            max-height: 600px; overflow-y: auto;
+            border-left: 5px solid var(--neon-primary);
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
+        }
+        .bio-wrapper p { margin-bottom: 25px; }
+        .bio-wrapper::-webkit-scrollbar { width: 6px; }
+        .bio-wrapper::-webkit-scrollbar-thumb { background: var(--neon-secondary); border-radius: 3px; }
+
+        /* --- PESTAÑA 3: DISCOGRAFÍA --- */
+        .albums-grid-system {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 35px;
+        }
+        .album-item { text-align: center; transition: 0.3s; cursor: pointer; perspective: 1000px; }
+        .album-item:hover { transform: translateY(-15px); }
+
+        .album-art {
+            width: 100%; aspect-ratio: 1/1; border-radius: 20px; object-fit: cover;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.6); margin-bottom: 15px;
+            border: 3px solid transparent; transition: 0.4s;
+        }
+        .album-item:hover .album-art {
+            border-color: var(--neon-primary); box-shadow: 0 0 30px rgba(255, 26, 26, 0.3);
+            transform: rotateX(5deg);
+        }
+        .album-name { font-weight: 700; font-size: 1rem; line-height: 1.3; color: white; margin-bottom: 6px; }
+        .album-year { color: var(--text-tertiary); font-size: 0.85rem; font-family: 'Montserrat', sans-serif; }
+
+        /* ==========================================================================
+           8. PANTALLA DE INICIO (HERO)
+           ========================================================================== */
+        .hero-section {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            height: 75vh; text-align: center; animation: heroFade 1.2s ease;
+        }
+        @keyframes heroFade { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+        .hero-logo {
+            font-family: 'Montserrat', sans-serif; font-size: 7rem; font-weight: 900;
+            letter-spacing: -4px; margin: 0;
+            background: -webkit-linear-gradient(0deg, #fff, #555);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 20px 60px rgba(0,0,0,0.7);
+        }
+
+        .hero-tagline {
+            font-size: 1.8rem; color: var(--neon-primary); margin: 25px 0;
+            text-transform: uppercase; letter-spacing: 8px; font-weight: 700;
+            animation: neonPulse 3s infinite alternate;
+        }
+        @keyframes neonPulse { from { text-shadow: 0 0 15px rgba(255,26,26,0.3); } to { text-shadow: 0 0 30px rgba(255,26,26,0.8); } }
+
+        .hero-desc { max-width: 700px; margin: 20px auto; color: #999; font-size: 1.2rem; line-height: 1.7; }
+
+        .hero-stats {
+            display: flex; gap: 60px; margin-top: 70px; opacity: 0.6;
+        }
+        .h-stat { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+        .h-stat svg { width: 40px; height: 40px; fill: white; }
+        .h-stat span { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; }
+
+        /* ==========================================================================
+           9. COMPONENTES FLOTANTES Y FOOTER
+           ========================================================================== */
+        .alert-float {
+            position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
+            background: rgba(255, 50, 50, 0.15); border: 1px solid var(--state-error);
+            padding: 18px 40px; border-radius: 50px; color: #ffcccc; font-weight: 600;
+            display: flex; align-items: center; gap: 15px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7); backdrop-filter: blur(15px);
+            z-index: 2000; animation: slideUpFade 0.6s ease;
+        }
+        @keyframes slideUpFade { from { bottom: 0; opacity: 0; } to { bottom: 40px; opacity: 1; } }
+
+        .backup-alert {
+            background: rgba(255, 204, 0, 0.1); border: 1px solid var(--state-warning);
+            color: var(--state-warning); padding: 18px; border-radius: var(--radius-md);
+            margin-bottom: 40px; text-align: center; font-weight: 600; letter-spacing: 0.5px;
+        }
+
+        .footer {
+            border-top: 1px solid var(--glass-border); padding: 60px 20px;
+            text-align: center; color: #666; font-size: 0.9rem;
+            background: rgba(0,0,0,0.9); margin-top: auto;
+        }
+
+        /* Modal de Compartir */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(5px);
+            z-index: 5000; display: none; align-items: center; justify-content: center;
+            opacity: 0; transition: 0.3s;
+        }
+        .modal-overlay.open { display: flex; opacity: 1; }
+        
+        .modal-box {
+            background: var(--glass-surface); border: 1px solid var(--glass-border);
+            padding: 40px; border-radius: var(--radius-lg); text-align: center;
+            width: 400px; transform: scale(0.8); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .modal-overlay.open .modal-box { transform: scale(1); }
+        
+        .modal-title { color: white; margin-bottom: 20px; font-family: 'Montserrat', sans-serif; }
+        .share-input {
+            width: 100%; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid #444;
+            color: white; border-radius: 10px; margin-bottom: 20px;
+        }
+        .modal-close {
+            background: var(--neon-primary); border: none; color: white;
+            padding: 10px 30px; border-radius: 30px; cursor: pointer; font-weight: bold;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .dashboard-layout { grid-template-columns: 1fr; }
+            .sidebar-profile { position: relative; top: 0; padding: 30px; margin-bottom: 30px; }
+            .navbar { flex-direction: column; height: auto; padding: 25px; gap: 25px; }
+            .header-search { width: 100%; }
+            .hero-title { font-size: 4rem; }
+            .hero-stats { gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="star-field">
+        <div class="stars-1"></div>
+        <div class="stars-2"></div>
+        <div class="stars-3"></div>
+    </div>
+
+    {% set placeholder = placeholder_global if placeholder_global is defined else 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' %}
+
+    <nav class="navbar">
+        <a href="/" class="brand-wrapper">
+            <div class="brand-logo">LEGATUM<span class="brand-dot">.</span></div>
+        </a>
+
+        <div class="nav-menu">
+            <a href="/" class="nav-item active">Inicio</a>
+            <a href="/artistas" class="nav-item">Descubrir</a>
+            <a href="/generos" class="nav-item">Géneros</a>
+        </div>
+
+        <form class="header-search" method="POST" action="/">
+            <input type="text" name="artista" class="search-input" placeholder="Busca tu sonido..." autocomplete="off" required>
+            <button type="submit" class="search-btn-icon">
+                <svg style="width:20px;height:20px;fill:white" viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" /></svg>
+            </button>
+        </form>
+    </nav>
+
+    {% if error %}
+        <div class="alert-float">
+            <svg style="width:28px;height:28px" viewBox="0 0 24 24"><path fill="currentColor" d="M13 14H11V9H13M13 18H11V16H13M1 21H23L12 2L1 21Z" /></svg>
+            <span>{{ error }}</span>
+        </div>
+    {% endif %}
+
+    <div class="main-container">
+        
+        {% if datos %}
+            
+            {% if datos.modo_respaldo %}
+                <div class="backup-alert">
+                    ⚠️ ATENCIÓN: Modo de Resiliencia Activado. Conexión con API primaria inestable, sirviendo datos de respaldo seguros.
+                </div>
+            {% endif %}
+
+            <div class="dashboard-layout">
+                
+                <aside class="panel sidebar-profile">
+                    
+                    {% if datos.fuente == 'Spotify' %}
+                        <div class="source-badge src-spotify">
+                            <svg style="width:16px;height:16px;fill:currentColor" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.46-1.02 15.66 1.44.539.3.719.96.42 1.5-.239.479-.899.66-1.44.36z"/></svg>
+                            Spotify Verified
+                        </div>
+                    {% elif datos.fuente == 'Last.fm' %}
+                        <div class="source-badge src-lastfm">Last.fm Data Source</div>
+                    {% else %}
+                        <div class="source-badge src-emergency">Web Scraping Result</div>
+                    {% endif %}
+
+                    <div class="avatar-container">
+                        <div class="avatar-ring"></div>
+                        {% if datos.info.images and datos.info.images|length > 0 %}
+                            <img src="{{ datos.info.images[0].url }}" class="artist-avatar" alt="{{ datos.info.name }}" onerror="this.src='{{ placeholder }}'">
+                        {% else %}
+                            <img src="{{ placeholder }}" class="artist-avatar" alt="Sin Imagen">
+                        {% endif %}
+                    </div>
+
+                    <h1 class="artist-title">{{ datos.info.name }}</h1>
+
+                    <button class="btn-share" onclick="openShareModal()">
+                        <svg style="width:16px;height:16px;fill:currentColor" viewBox="0 0 24 24"><path d="M18,16.08C17.24,16.08 16.56,16.38 16.04,16.85L8.91,12.7C8.96,12.47 9,12.24 9,12C9,11.76 8.96,11.53 8.91,11.3L15.96,7.13C16.5,7.69 17.21,8 18,8A3,3 0 0,0 21,5A3,3 0 0,0 18,2A3,3 0 0,0 15,5C15,5.24 15.04,5.47 15.09,5.7L8.04,9.87C7.5,9.31 6.79,9 6,9A3,3 0 0,0 3,12A3,3 0 0,0 6,15C6.79,15 7.5,14.69 8.04,14.13L15.16,18.3C15.11,18.53 15.08,18.76 15.08,19A3,3 0 0,0 18,22A3,3 0 0,0 21,19A3,3 0 0,0 18,16.08Z" /></svg>
+                        Compartir Perfil
+                    </button>
+
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <span class="stat-number">{{ "{:,}".format(datos.info.followers.total|int) if datos.info.followers.total != 'N/A' else 'N/A' }}</span>
+                            <span class="stat-label">Seguidores</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number" style="color:var(--neon-primary)">{{ datos.info.popularity }}</span>
+                            <span class="stat-label">Popularidad</span>
+                        </div>
+                    </div>
+
+                    <div class="tags-container">
+                        {% if datos.info.genres %}
+                            {% for genero in datos.info.genres %}
+                                <span class="genre-badge">{{ genero }}</span>
+                            {% endfor %}
+                        {% else %}
+                            <span class="genre-badge">Artista General</span>
+                        {% endif %}
+                    </div>
+
+                </aside>
+
+                <main class="panel content-panel">
+                    
+                    <div class="tabs-header">
+                        <button class="tab-btn active" onclick="openTab(event, 'tab-music')">Música</button>
+                        <button class="tab-btn" onclick="openTab(event, 'tab-bio')">Biografía</button>
+                        <button class="tab-btn" onclick="openTab(event, 'tab-albums')">Discografía</button>
+                    </div>
+
+                    <div id="tab-music" class="tab-content active">
+                        <div class="section-headline">
+                            <svg style="width:24px;height:24px;fill:var(--neon-primary)" viewBox="0 0 24 24"><path d="M16,9H13V14.5A2.5,2.5 0 0,1 10.5,17A2.5,2.5 0 0,1 8,14.5A2.5,2.5 0 0,1 10.5,12C11.07,12 11.58,12.19 12,12.5V7H16M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2Z" /></svg>
+                            Top Canciones
+                        </div>
+                        
+                        <div class="tracks-list">
+                            {% if datos.tracks %}
+                                {% for track in datos.tracks %}
+                                <div class="track-row">
+                                    <div class="track-left">
+                                        <div class="track-index">{{ loop.index }}</div>
+                                        <div class="visualizer"><div class="v-bar"></div><div class="v-bar"></div><div class="v-bar"></div></div>
+                                        <div class="track-info">
+                                            <h4>{{ track.name }}</h4>
+                                            <span>Top Hit • Verificado</span>
+                                        </div>
+                                    </div>
+                                    <div class="track-actions">
+                                        {% if track.external_urls and track.external_urls.spotify %}
+                                        <a href="{{ track.external_urls.spotify }}" target="_blank" class="action-btn btn-spotify" title="Escuchar en Spotify">
+                                            <svg style="width:20px;height:20px;fill:currentColor" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.46-1.02 15.66 1.44.539.3.719.96.42 1.5-.239.479-.899.66-1.44.36z"/></svg>
+                                        </a>
+                                        {% endif %}
+                                        <a href="https://www.youtube.com/results?search_query={{ datos.info.name }} {{ track.name }} official audio" target="_blank" class="action-btn btn-youtube" title="Ver en YouTube">
+                                            <svg style="width:20px;height:20px;fill:currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                                        </a>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            {% else %}
+                                <p style="color:#777; text-align:center;">No hay tracks disponibles.</p>
+                            {% endif %}
+                        </div>
+
+                        {% if video_id %}
+                        <div class="video-cinema">
+                            <div class="video-label">
+                                <div class="rec-dot"></div>
+                                Reproduciendo Video Destacado
+                            </div>
+                            <iframe src="https://www.youtube.com/embed/{{ video_id }}" class="video-iframe" allowfullscreen></iframe>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div id="tab-bio" class="tab-content">
+                        <h2 style="color: white; margin-bottom: 20px;">Historia del Artista</h2>
+                        <div class="bio-wrapper">
+                            <p>{{ bio if bio else "No hay información biográfica disponible." }}</p>
+                        </div>
+                    </div>
+
+                    <div id="tab-albums" class="tab-content">
+                        <h2 style="color: white; margin-bottom: 20px;">Discografía Esencial</h2>
+                        {% if datos.albums %}
+                        <div class="albums-grid-system">
+                            {% for album in datos.albums %}
+                            <div class="album-item">
+                                {% if album.images and album.images|length > 0 %}
+                                    <img src="{{ album.images[0].url }}" class="album-art" alt="{{ album.name }}" onerror="this.src='{{ placeholder }}'">
+                                {% else %}
+                                    <img src="{{ placeholder }}" class="album-art" alt="Cover no disponible">
+                                {% endif %}
+                                <div class="album-name">{{ album.name }}</div>
+                                {% if album.release_date %}
+                                    <div class="album-year">{{ album.release_date[:4] }}</div>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                            <p style="color:#777; text-align:center;">No hay álbumes disponibles.</p>
+                        {% endif %}
+                    </div>
+
+                </main>
+            </div>
+
+        {% else %}
+            
+            <div class="hero-section">
+                <h1 class="hero-logo">LEGATUM</h1>
+                <div class="hero-tagline">EL UNIVERSO DEL SONIDO</div>
+                <p class="hero-desc">
+                    Conecta todas tus fuentes musicales en una interfaz unificada.
+                    <br>Búsqueda Inteligente • Datos Verificados • Streaming Visual
+                </p>
+                
+                <div class="hero-stats">
+                    <div class="h-stat">
+                        <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M16.18,7.76L15.12,8.82L14.06,7.76L13,8.82L14.06,9.88L13,10.94L14.06,12L15.12,10.94L16.18,12L17.24,10.94L16.18,9.88L17.24,8.82L16.18,7.76M7.82,12L8.88,10.94L9.94,12L11,10.94L9.94,9.88L11,8.82L9.94,7.76L8.88,8.82L7.82,7.76L6.76,8.82L7.82,9.88L6.76,10.94L7.82,12Z"/></svg>
+                        <span>Discover</span>
+                    </div>
+                    <div class="h-stat">
+                        <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.46-1.02 15.66 1.44.539.3.719.96.42 1.5-.239.479-.899.66-1.44.36z"/></svg>
+                        <span>Connect</span>
+                    </div>
+                    <div class="h-stat">
+                        <svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                        <span>Play</span>
+                    </div>
+                </div>
+            </div>
+
+        {% endif %}
+
+    </div>
+
+    <div class="modal-overlay" id="shareModal" onclick="closeShareModal(event)">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <h2 class="modal-title">Compartir Perfil</h2>
+            <p style="color:#aaa; margin-bottom:20px;">Copia este enlace para compartir este artista:</p>
+            <input type="text" class="share-input" value="https://legatum-music.com/artist/{{ datos.info.name if datos else '' }}" readonly>
+            <button class="modal-close" onclick="closeShareModal()">Cerrar</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Legatum Music System. Enterprise Edition v4.2</p>
+        <p style="opacity:0.5; margin-top:5px; font-size:0.75rem;">
+            Construido con Python Flask • Spotify API • Last.fm • YouTube Data API
+        </p>
+    </footer>
+
+    <script>
+        // 1. Sistema de Pestañas (Tabs)
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            // Truco para reiniciar animación
+            setTimeout(() => {
+                document.getElementById(tabName).classList.add("active");
+            }, 10);
+            evt.currentTarget.className += " active";
+        }
+
+        // 2. Modal de Compartir
+        function openShareModal() {
+            document.getElementById('shareModal').classList.add('open');
+        }
+        
+        function closeShareModal(e) {
+            // Si e está definido, es click fuera. Si no, es botón cerrar.
+            if (!e || e.target.id === 'shareModal' || e.target.classList.contains('modal-close')) {
+                document.getElementById('shareModal').classList.remove('open');
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+2025-11-26 23:11:13,278 | INFO     | Thread-4 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-26 23:11:14,261 | INFO     | Thread-4 (process_request_thread) | app:authorize:0747 | ✅ Token Spotify renovado.
+2025-11-26 23:11:54,188 | INFO     | Thread-6 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-26 23:15:46,932 | INFO     | Thread-12 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-26 23:21:33,367 | INFO     | Thread-16 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-26 23:21:54,433 | INFO     | Thread-18 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-26 23:27:19,989 | INFO     | Thread-21 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-26 23:29:51,050 | INFO     | Thread-25 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-26 23:30:23,938 | INFO     | Thread-26 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-26 23:30:41,489 | INFO     | Thread-27 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-26 23:32:35,597 | INFO     | Thread-30 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-26 23:37:10,221 | INFO     | Thread-32 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-26 23:42:17,282 | INFO     | Thread-36 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-26 23:43:13,715 | INFO     | Thread-37 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-26 23:44:01,279 | INFO     | Thread-38 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-26 23:47:40,064 | INFO     | Thread-40 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-26 23:58:25,976 | INFO     | Thread-42 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 00:02:50,849 | INFO     | Thread-44 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 00:03:11,618 | INFO     | Thread-45 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 00:03:23,582 | INFO     | Thread-46 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 00:05:48,546 | INFO     | Thread-49 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 00:08:50,643 | INFO     | Thread-51 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 00:20:37,804 | INFO     | Thread-53 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 00:20:38,693 | INFO     | Thread-53 (process_request_thread) | app:authorize:0747 | ✅ Token Spotify renovado.
+2025-11-27 00:21:41,872 | INFO     | Thread-58 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 00:23:59,940 | INFO     | Thread-63 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 00:24:46,498 | INFO     | Thread-64 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 00:30:13,042 | INFO     | Thread-69 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 00:30:26,450 | INFO     | Thread-74 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 00:32:45,785 | INFO     | Thread-79 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 00:35:39,500 | INFO     | Thread-81 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 00:36:20,038 | INFO     | Thread-82 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 00:36:44,410 | INFO     | Thread-83 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 00:41:04,243 | INFO     | Thread-85 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 00:47:14,643 | INFO     | Thread-87 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 00:49:27,832 | INFO     | Thread-90 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 00:53:41,113 | INFO     | Thread-94 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 00:54:01,190 | INFO     | Thread-96 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 00:54:11,742 | INFO     | Thread-98 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 00:56:14,233 | INFO     | Thread-117 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 00:56:27,180 | INFO     | Thread-123 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 01:39:51,119 | INFO     | Thread-81 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 01:39:52,002 | INFO     | Thread-81 (process_request_thread) | app:authorize:0747 | ✅ Token Spotify renovado.
+2025-11-27 01:40:16,052 | INFO     | Thread-99 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 01:41:02,870 | INFO     | Thread-118 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 01:43:17,701 | INFO     | Thread-159 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 01:43:47,940 | INFO     | Thread-194 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 01:44:47,251 | INFO     | Thread-214 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 01:45:14,358 | INFO     | Thread-215 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 01:46:42,286 | INFO     | Thread-255 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 01:53:31,180 | INFO     | Thread-296 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 02:19:26,568 | INFO     | Thread-3 (process_request_thread) | app:get_discovery_items:0963 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 02:19:27,496 | INFO     | Thread-3 (process_request_thread) | app:authorize:0747 | ✅ Token Spotify renovado.
+2025-11-27 02:23:53,731 | INFO     | Thread-23 (process_request_thread) | app:get_discovery_items:0963 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 02:24:09,611 | INFO     | Thread-24 (process_request_thread) | app:get_discovery_items:0963 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 02:34:55,467 | INFO     | Thread-64 (process_request_thread) | app:get_discovery_items:0963 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 02:41:13,334 | INFO     | Thread-2 (process_request_thread) | app:get_discovery_items:0963 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 02:41:14,290 | INFO     | Thread-2 (process_request_thread) | app:authorize:0747 | ✅ Token Spotify renovado.
+2025-11-27 02:46:04,748 | INFO     | Thread-2 (process_request_thread) | app:authorize:0792 | ✅ Token Spotify renovado.
+2025-11-27 02:49:53,091 | INFO     | Thread-2 (process_request_thread) | app:get_discovery_items:0963 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 02:49:53,987 | INFO     | Thread-2 (process_request_thread) | app:authorize:0747 | ✅ Token Spotify renovado.
+2025-11-27 02:59:05,031 | INFO     | Thread-2 (process_request_thread) | app:get_discovery_items:0964 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 02:59:05,977 | INFO     | Thread-2 (process_request_thread) | app:authorize:0747 | ✅ Token Spotify renovado.
+2025-11-27 02:59:47,479 | INFO     | Thread-2 (process_request_thread) | app:get_discovery_items:0963 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 02:59:48,361 | INFO     | Thread-2 (process_request_thread) | app:authorize:0747 | ✅ Token Spotify renovado.
+2025-11-27 03:04:10,933 | INFO     | Thread-41 (process_request_thread) | app:get_discovery_items:0963 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 03:04:28,746 | INFO     | Thread-61 (process_request_thread) | app:get_discovery_items:0963 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 03:23:56,650 | INFO     | Thread-3 (process_request_thread) | app:get_discovery_items:0831 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 03:23:57,747 | INFO     | Thread-3 (process_request_thread) | app:authorize:0629 | ✅ Token Spotify renovado.
+2025-11-27 03:34:13,076 | INFO     | Thread-26 (process_request_thread) | app:get_discovery_items:0831 | Iniciando secuencia de descubrimiento para 24 artistas.
+2025-11-27 03:36:02,656 | INFO     | Thread-2 (process_request_thread) | app:authorize:0495 | ✅ Token Spotify renovado.
