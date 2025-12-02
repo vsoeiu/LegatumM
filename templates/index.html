@@ -727,8 +727,24 @@
             }
             
             .video-iframe { height: 200px; }
-            .albums-grid-system { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
             
+            /* MODIFIED: 3 columns for albums on mobile */
+            .albums-grid-system { 
+                grid-template-columns: repeat(3, 1fr); 
+                gap: 10px; 
+            }
+            
+            /* NEW: Smaller fonts for albums */
+            .album-name { font-size: 0.8rem; margin-bottom: 3px; }
+            .album-year { font-size: 0.7rem; }
+
+            /* NEW: Smaller font for biography */
+            .bio-wrapper { 
+                padding: 20px; 
+                font-size: 0.9rem; 
+                line-height: 1.6; 
+            }
+
             .modal-box { width: 90%; padding: 30px 20px; }
 
             /* --- AJUSTES DE PERFIL EN MOVIL (COMPACTO) --- */
