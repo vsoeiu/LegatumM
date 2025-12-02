@@ -18,8 +18,8 @@
            ========================================================================== */
         :root {
             /* --- Paleta de Fondo --- */
-            --bg-void: #050505;         /* Negro absoluto */
-            --bg-nebula: #1a0505;       /* Tono rojizo muy oscuro */
+            --bg-void: #050505;         
+            --bg-nebula: #1a0505;       
             --bg-overlay: rgba(0,0,0,0.8);
             
             /* --- Superficies de Vidrio (Glassmorphism 4.0) --- */
@@ -30,8 +30,8 @@
             --glass-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
             
             /* --- Acentos de Neon (Identidad de Marca) --- */
-            --neon-primary: #ff1a1a;    /* Rojo Legatum */
-            --neon-secondary: #800000;  /* Sangre */
+            --neon-primary: #ff1a1a;    
+            --neon-secondary: #800000;  
             --neon-glow: 0 0 25px rgba(255, 26, 26, 0.5);
             --neon-text-glow: 0 0 10px rgba(255, 255, 255, 0.3);
 
@@ -46,10 +46,10 @@
             --text-tertiary: #888888;
             
             /* --- Estados del Sistema --- */
-            --state-success: #1DB954;   /* Spotify Green */
-            --state-error: #ff3333;     /* Error Red */
-            --state-warning: #ffcc00;   /* Warning Yellow */
-            --state-info: #3399ff;      /* Info Blue */
+            --state-success: #1DB954;   
+            --state-error: #ff3333;     
+            --state-warning: #ffcc00;   
+            --state-info: #3399ff;      
             
             /* --- Dimensiones y Fisicas --- */
             --radius-xl: 40px;
@@ -98,19 +98,16 @@
             overflow: hidden;
         }
 
-        /* Capa 1: Estrellas Lejanas (Lentas) */
         .stars-1 {
             width: 2px; height: 2px; background: transparent;
             box-shadow: 100px 200px #fff, 400px 500px #fff, 800px 100px #fff, 1200px 900px #fff;
             animation: animStar 100s linear infinite;
         }
-        /* Capa 2: Estrellas Medias */
         .stars-2 {
             width: 3px; height: 3px; background: transparent;
             box-shadow: 200px 300px #ccc, 500px 100px #ccc, 900px 600px #ccc;
             animation: animStar 50s linear infinite;
         }
-        /* Capa 3: Estrellas Cercanas (Rapidas) */
         .stars-3 {
             width: 4px; height: 4px; background: transparent;
             box-shadow: 150px 800px #aaa, 600px 200px #aaa;
@@ -122,7 +119,6 @@
             to { transform: translateY(-2000px); }
         }
 
-        /* Scrollbar Invisible pero funcional (Estilo WebKit) */
         ::-webkit-scrollbar { width: 8px; background: transparent; }
         ::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); }
         ::-webkit-scrollbar-thumb {
@@ -132,14 +128,13 @@
         ::-webkit-scrollbar-thumb:hover { background-color: rgba(255,255,255,0.4); }
 
         /* ==========================================================================
-           4. BARRA DE NAVEGACION "IMPERIAL STYLE" (CORREGIDA Y ADELGAZADA)
+           4. BARRA DE NAVEGACION
            ========================================================================== */
         .navbar {
             background: rgba(2, 2, 2, 0.95);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            /* Altura reducida para coincidir con artistas.html */
             height: 70px; 
             display: flex;
             align-items: center;
@@ -151,30 +146,25 @@
             transition: all 0.4s ease;
         }
 
-        /* Logotipo con Icono */
         .brand-wrapper {
             display: flex; align-items: center; gap: 10px; text-decoration: none;
             transition: var(--anim-fast);
         }
         .brand-wrapper:hover { transform: translateY(-1px); }
 
-        /* Icono ajustado para barra delgada */
         .brand-icon-img {
-            height: 35px; /* Reducido para encajar en barra de 70px */
+            height: 35px; 
             width: auto;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
         }
 
-        /* Texto LEGATUM ajustado (Mas pequeno) */
         .brand-logo {
             font-family: 'Cinzel', serif; 
             font-weight: 700;
-            font-size: 1.6rem; /* Reducido de 2.2rem a 1.6rem para elegancia */
+            font-size: 1.6rem; 
             letter-spacing: 2px;
             text-transform: uppercase;
             position: relative;
-            
-            /* Efecto Dorado */
             background: linear-gradient(to right, var(--gold-dark), var(--gold-main), var(--gold-light), var(--gold-main));
             -webkit-background-clip: text;
             background-clip: text;
@@ -183,10 +173,9 @@
             text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
         
-        /* Menu Central - ESTILO LIMPIO (Sin capsulas rojas) */
         .nav-menu {
             display: flex; gap: 30px;
-            background: transparent; /* Fondo transparente */
+            background: transparent; 
             padding: 0;
             border: none;
         }
@@ -206,12 +195,10 @@
 
         .nav-link:hover, .nav-link.active {
             color: white;
-            /* Se eliminan backgrounds y box-shadows de estilo boton */
             background: transparent; 
             box-shadow: none;
         }
 
-        /* Efecto de subrayado dorado al hacer hover */
         .nav-link::after {
             content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px;
             background: var(--gold-main); 
@@ -219,15 +206,14 @@
         }
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
-        /* Buscador Global - Estilo Compacto */
         .header-search { position: relative; width: 280px; }
 
         .search-input {
             width: 100%;
-            background: rgba(255, 255, 255, 0.05); /* Fondo mas sutil */
+            background: rgba(255, 255, 255, 0.05); 
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 50px;
-            padding: 10px 45px 10px 20px; /* Padding reducido verticalmente */
+            padding: 10px 45px 10px 20px; 
             color: white;
             font-family: 'Inter', sans-serif;
             font-size: 0.9rem;
@@ -243,7 +229,7 @@
 
         .search-btn-icon {
             position: absolute; right: 5px; top: 50%; transform: translateY(-50%);
-            width: 32px; height: 32px; /* Boton un poco mas pequeno */
+            width: 32px; height: 32px; 
             background: var(--neon-primary);
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
@@ -252,7 +238,7 @@
         }
         .search-btn-icon:hover { transform: translateY(-50%) scale(1.1); box-shadow: var(--neon-glow); }
 
-        /* --- NUEVO: Estilos para Sugerencias de Busqueda (Autosuggest) --- */
+        /* --- SUGERENCIAS DE BUSQUEDA (AUTOSUGGEST) --- */
         .suggestions-box {
             position: absolute;
             top: 110%;
@@ -266,7 +252,7 @@
             overflow: hidden;
             box-shadow: 0 15px 40px rgba(0,0,0,0.8);
             z-index: 2000;
-            display: none; /* Oculto por defecto */
+            display: none; 
             animation: fadeInSugg 0.2s ease;
         }
         @keyframes fadeInSugg { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
@@ -315,7 +301,6 @@
             to { opacity: 1; transform: translateY(0); } 
         }
 
-        /* Estilos Base para Paneles de Vidrio */
         .panel {
             background: var(--glass-surface);
             backdrop-filter: blur(30px);
@@ -328,7 +313,6 @@
             position: relative;
         }
         
-        /* Efecto de brillo sutil en hover */
         .panel::after {
             content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             border-radius: var(--radius-lg);
@@ -341,7 +325,7 @@
            ========================================================================== */
         .sidebar-profile {
             position: sticky;
-            top: 100px; /* Ajustado por la barra mas delgada */
+            top: 100px; 
             padding: 50px 40px;
             text-align: center;
             display: flex; flex-direction: column; align-items: center;
@@ -454,7 +438,7 @@
         .tabs-header {
             display: flex; gap: 30px; margin-bottom: 40px;
             border-bottom: 2px solid rgba(255,255,255,0.05); padding-bottom: 15px;
-            overflow-x: auto; /* Para movil */
+            overflow-x: auto; 
         }
 
         .tab-btn {
@@ -471,7 +455,6 @@
             background: var(--neon-primary); box-shadow: var(--neon-glow); border-radius: 2px 2px 0 0;
         }
 
-        /* Animacion de Cambio de Pestana */
         .tab-content { display: none; opacity: 0; transform: translateY(20px); transition: 0.5s; }
         .tab-content.active { display: block; opacity: 1; transform: translateY(0); animation: tabSlide 0.5s var(--anim-smooth); }
         @keyframes tabSlide { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -495,7 +478,6 @@
         .track-left { display: flex; align-items: center; gap: 25px; flex: 1; }
         .track-index { font-family: 'Montserrat', sans-serif; font-weight: 900; color: var(--text-tertiary); font-size: 1.2rem; width: 40px; }
         
-        /* Visualizador de Audio */
         .visualizer { display: flex; gap: 3px; align-items: flex-end; height: 20px; width: 20px; display: none; }
         .track-row:hover .visualizer { display: flex; }
         .track-row:hover .track-index { display: none; }
@@ -519,7 +501,6 @@
         .btn-youtube { background: rgba(255, 0, 0, 0.2); color: #ff4444; }
         .btn-youtube:hover { background: #ff0000; color: white; box-shadow: 0 0 20px rgba(255,0,0,0.5); transform: scale(1.1); }
 
-        /* Video Player Estilizado */
         .video-cinema {
             margin-top: 50px; background: #000; padding: 10px;
             border-radius: var(--radius-lg); box-shadow: 0 40px 80px rgba(0,0,0,0.9);
@@ -567,7 +548,7 @@
         .album-year { color: var(--text-tertiary); font-size: 0.85rem; font-family: 'Montserrat', sans-serif; }
 
         /* ==========================================================================
-           8. PANTALLA DE INICIO (HERO) - MODIFICADO CON ORO Y CINZEL
+           8. PANTALLA DE INICIO (HERO)
            ========================================================================== */
         .hero-section {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -576,21 +557,17 @@
         @keyframes heroFade { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 
         .hero-logo {
-            /* Fuente Cinzel */
             font-family: 'Cinzel', serif;
-            font-size: 6rem; /* Ajustado para Cinzel */
+            font-size: 6rem; 
             font-weight: 700;
             letter-spacing: 2px;
             margin: 0;
-            
-            /* Efecto Dorado */
             background: linear-gradient(to right, var(--gold-dark), var(--gold-main), var(--gold-light), var(--gold-main));
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
             color: transparent;
-            
-            text-shadow: 0 5px 25px rgba(0,0,0,0.5); /* Sombra para legibilidad */
+            text-shadow: 0 5px 25px rgba(0,0,0,0.5); 
         }
 
         .hero-tagline {
@@ -661,7 +638,7 @@
         }
 
         /* ==========================================================================
-           10. RESPONSIVIDAD MOVIL AVANZADA (NUEVO)
+           10. RESPONSIVIDAD MOVIL (ADAPTIVE SYSTEM - MINIATURE MODE)
            ========================================================================== */
         @media (max-width: 1200px) {
             .dashboard-layout { grid-template-columns: 1fr; }
@@ -680,20 +657,108 @@
             .nav-link { font-size: 0.75rem; letter-spacing: 1px; }
             
             .main-container { padding: 0 15px; margin-top: 20px; }
-            .content-panel { padding: 25px 15px; }
             
+            /* Content Panel ultra-compacto */
+            .content-panel { padding: 15px; }
+
             .hero-logo { font-size: 3.5rem; }
             .hero-tagline { font-size: 1.2rem; letter-spacing: 4px; }
             .hero-stats { flex-wrap: wrap; justify-content: center; gap: 40px; }
             
-            .track-row { flex-direction: column; align-items: flex-start; gap: 15px; padding: 20px; }
-            .track-left { width: 100%; }
-            .track-actions { width: 100%; justify-content: flex-end; margin-top: 10px; }
+            /* --- TRACKS ULTRA COMPACTOS --- */
+            .track-row { 
+                flex-direction: row; /* Fila horizontal */
+                align-items: center; 
+                gap: 10px; 
+                padding: 10px 15px;
+                min-height: auto; 
+            }
             
-            .video-iframe { height: 250px; }
+            .track-left { 
+                width: auto; 
+                flex: 1; 
+                min-width: 0; /* Permitir truncamiento */
+            }
+            
+            .track-index { 
+                font-size: 1rem; 
+                width: 25px; 
+                min-width: 25px; 
+            }
+            
+            .track-info h4 { 
+                font-size: 0.95rem; 
+                margin-bottom: 2px;
+                white-space: nowrap; 
+                overflow: hidden; 
+                text-overflow: ellipsis; 
+            }
+            
+            .track-info span { 
+                font-size: 0.7rem; 
+            }
+            
+            .track-actions { 
+                width: auto; 
+                justify-content: flex-end; 
+                margin-top: 0; 
+                gap: 8px;
+            }
+            
+            .action-btn { 
+                width: 32px; 
+                height: 32px; 
+            }
+            
+            .action-btn svg { 
+                width: 16px; 
+                height: 16px; 
+            }
+            
+            /* --- TABS COMPACTAS --- */
+            .tabs-header { 
+                gap: 15px; 
+                justify-content: space-between; 
+                padding-bottom: 10px; 
+            }
+            .tab-btn { 
+                font-size: 0.9rem; 
+                padding: 5px; 
+            }
+            
+            .video-iframe { height: 200px; }
             .albums-grid-system { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
             
             .modal-box { width: 90%; padding: 30px 20px; }
+
+            /* --- AJUSTES DE PERFIL EN MOVIL (COMPACTO) --- */
+            .sidebar-profile { 
+                padding: 20px 15px; 
+            }
+            
+            .avatar-container { 
+                width: 140px; height: 140px; 
+                margin-bottom: 15px; 
+            }
+            
+            .artist-title { 
+                font-size: 1.8rem; 
+                margin-bottom: 8px;
+            }
+            
+            .btn-share { margin-bottom: 20px; padding: 6px 16px; font-size: 0.75rem; }
+
+            .stats-grid { 
+                gap: 8px; 
+                margin-bottom: 15px;
+            }
+            
+            .stat-box { padding: 12px; }
+            .stat-number { font-size: 1rem; }
+            .stat-label { font-size: 0.6rem; letter-spacing: 1px; }
+            
+            .genre-badge { font-size: 0.6rem; padding: 5px 10px; }
+            .source-badge { font-size: 0.75rem; padding: 8px 16px; margin-bottom: 20px; }
         }
     </style>
 </head>
@@ -722,7 +787,7 @@
         <form class="header-search" method="POST" action="/" id="searchForm">
             <input type="text" name="artista" id="searchInput" class="search-input" placeholder="Busca tu sonido..." autocomplete="off" required>
             <button type="submit" class="search-btn-icon">
-                <svg style="width:20px;height:20px;fill:white" viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" /></svg>
+                <svg style="width:20px;height:20px;fill:white" viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,9.5C14,7 12,5 9.5,5Z" /></svg>
             </button>
             
             <!-- CONTENEDOR DE SUGERENCIAS (AUTOSUGGEST) -->
