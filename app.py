@@ -10,6 +10,10 @@
 # + [LOGIC] Agregada deteccion de patron "Cancion - Artista".
 # + [LOGIC] Si se detecta un guion, el sistema separa la busqueda y prioriza
 #           encontrar al artista del lado derecho de la cadena.
+#
+# CHANGELOG V12.3 (YOUTUBE MIX INTEGRATION):
+# + [FEATURE] Agregado soporte para pestaña 'Mix' en StandardResponse.
+# + [LOGIC] CoreLogic ahora inyecta un mix de videos de YouTube en la respuesta.
 # =============================================================================
 
 import os
@@ -288,6 +292,8 @@ class StandardResponse:
     albums: List[AlbumInfo]
     fuente: str
     modo_respaldo: bool
+    # [CAMBIO] Lista de videos para la pestaña 'Mix'
+    mix_videos: List[Dict[str, str]] = field(default_factory=list)
 
 # =============================================================================
 # [SECCION 7] MOCK ENGINE
@@ -424,9 +430,7 @@ class SpotifyClient(BaseDriver):
             except:
                 pass
 
-        # Estrategia 2: Busqueda estandar de Artista (Solo si no es compuesto o fallo lo anterior)
-        # Si el usuario escribio "Telephones - Vacations", buscar eso como artista suele fallar,
-        # asi que si detectamos compuesto y fallo la busqueda directa, es mejor saltar a Track.
+        # Estrategia 2: Busqueda estandar de Artista
         if not artist_id and not is_composite:
             logger.info(f" Buscando '{query}' como Artista...")
             search_artist = http_client.fetch(Config.URL_BASE_SPOTIFY, params={'q': query, 'type': 'artist', 'limit': 1}, headers=headers)
@@ -435,7 +439,7 @@ class SpotifyClient(BaseDriver):
                 artist_data = search_artist['artists']['items'][0]
                 artist_id = artist_data['id']
 
-        # Estrategia 3: Busqueda por TRACK (Red de seguridad y resolucion de canciones)
+        # Estrategia 3: Busqueda por TRACK
         if not artist_id:
             logger.info(f" Buscando '{query}' como Track para extraer artista...")
             search_track = http_client.fetch(Config.URL_BASE_SPOTIFY, params={'q': query, 'type': 'track', 'limit': 1}, headers=headers)
@@ -526,6 +530,32 @@ class YouTubeClient(BaseDriver):
         data = http_client.fetch(Config.YOUTUBE_API_URL, params=params)
         return data['items'][0]['id']['videoId'] if data and 'items' in data and data['items'] else None
 
+    # [CAMBIO] Funcion para obtener mix de videos de un artista especifico
+    def get_artist_mix(self, artist_name: str) -> List[Dict[str, str]]:
+        """Busca videos musicales oficiales del artista para la seccion Mix."""
+        query = f"{artist_name} official music video"
+        # videoCategoryId=10 filtra solo Musica
+        params = {
+            'part': 'snippet', 
+            'q': query, 
+            'key': Config.YOUTUBE_KEY, 
+            'maxResults': 8, # 8 videos para una grilla equilibrada
+            'type': 'video', 
+            'videoCategoryId': '10' 
+        }
+        data = http_client.fetch(Config.YOUTUBE_API_URL, params=params)
+        
+        mix_list = []
+        if data and 'items' in data:
+            for item in data['items']:
+                if item['id'].get('videoId'):
+                    mix_list.append({
+                        'title': item['snippet']['title'],
+                        'video_id': item['id']['videoId'],
+                        'thumbnail': item['snippet']['thumbnails']['medium']['url']
+                    })
+        return mix_list
+
 # =============================================================================
 # [SECCION 10] LOGICA CENTRAL
 # =============================================================================
@@ -550,6 +580,15 @@ class CoreLogic:
             data = self.lastfm.find_artist(query)
         
         if not data: return None, None, None, "No encontrado"
+
+        # [CAMBIO] Inyeccion de videos del Mix de YouTube
+        # Obtenemos los videos y los guardamos dentro del objeto data (StandardResponse)
+        try:
+            mix_videos = self.youtube.get_artist_mix(data.info.name)
+            data.mix_videos = mix_videos
+        except Exception as e:
+            logger.error(f"Error obteniendo mix de youtube: {e}")
+            data.mix_videos = []
 
         bio = ""
         try: bio = wikipedia.summary(data.info.name, sentences=4)
