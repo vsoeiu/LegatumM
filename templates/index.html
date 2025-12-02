@@ -638,7 +638,7 @@
         }
 
         /* ==========================================================================
-           10. RESPONSIVIDAD MOVIL (ADAPTIVE SYSTEM - MINIATURE MODE)
+           10. RESPONSIVIDAD MOVIL (ADAPTIVE SYSTEM)
            ========================================================================== */
         @media (max-width: 1200px) {
             .dashboard-layout { grid-template-columns: 1fr; }
@@ -759,6 +759,31 @@
             
             .genre-badge { font-size: 0.6rem; padding: 5px 10px; }
             .source-badge { font-size: 0.75rem; padding: 8px 16px; margin-bottom: 20px; }
+        }
+
+        /* --- NUEVO: AJUSTES PARA PANTALLAS MUY PEQUEÑAS (Mobile XS) --- */
+        @media (max-width: 480px) {
+            .navbar { padding: 10px; }
+            .brand-logo { font-size: 1.2rem; }
+            .header-search input { padding: 8px 35px 8px 15px; font-size: 0.8rem; }
+            
+            .sidebar-profile { padding: 15px 10px; }
+            .avatar-container { width: 120px; height: 120px; margin-bottom: 10px; }
+            .artist-title { font-size: 1.5rem; }
+            
+            .track-row { padding: 8px 10px; gap: 8px; }
+            .track-index { font-size: 0.8rem; width: 20px; min-width: 20px; }
+            .track-info h4 { font-size: 0.85rem; }
+            .track-info span { font-size: 0.65rem; }
+            
+            .action-btn { width: 28px; height: 28px; }
+            .action-btn svg { width: 14px; height: 14px; }
+            
+            .tab-btn { font-size: 0.75rem; padding: 5px 2px; }
+            
+            .albums-grid-system { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .album-name { font-size: 0.85rem; }
+            .album-year { font-size: 0.75rem; }
         }
     </style>
 </head>
