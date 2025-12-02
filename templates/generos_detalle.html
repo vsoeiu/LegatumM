@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Explora los mejores artistas del género {{ genero }} en Legatum.">
+    <meta name="description" content="Explora los mejores artistas del genero {{ genero }} en Legatum.">
     <meta name="theme-color" content="#020202">
     <title>{{ genero }} | Legatum</title>
     
@@ -13,7 +13,7 @@
 
     <style>
         /* ==========================================================================
-           1. ARQUITECTURA DE DISEÑO (IMPERIAL GOLD V8)
+           1. ARQUITECTURA DE DISENO (IMPERIAL GOLD V8)
            ========================================================================== */
         :root {
             /* --- Paleta Base --- */
@@ -38,7 +38,7 @@
             --color-text-primary: #ffffff;    
             --color-text-secondary: #a3a3a3;  
             --color-text-muted: #555555;
-            --color-text-glow: rgba(255, 255, 255, 0.15);      
+            --color-text-glow: rgba(255, 255, 255, 0.15);       
             
             /* --- UI --- */
             --border-subtle: 1px solid rgba(255, 255, 255, 0.08);
@@ -93,7 +93,7 @@
         ::selection { background: var(--color-accent-main); color: white; }
 
         /* ==========================================================================
-           3. AMBIENTACIÓN
+           3. AMBIENTACION
            ========================================================================== */
         .ambient-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% -20%, #2a0000 0%, #020202 70%); z-index: -3; pointer-events: none; }
         .dot-pattern { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px); background-size: 24px 24px; z-index: -2; pointer-events: none; opacity: 0.6; }
@@ -134,7 +134,7 @@
         .brand-text {
             font-family: 'Cinzel', serif;
             font-weight: 700;
-            font-size: 1.6rem; /* Ajustado */
+            font-size: 1.6rem;
             letter-spacing: 2px;
             text-transform: uppercase;
             
@@ -147,7 +147,7 @@
             text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
         
-        /* Menú Limpio */
+        /* Menu Limpio */
         .nav-menu { display: flex; gap: 30px; list-style: none; padding: 0; margin: 0; }
         .nav-link {
             text-decoration: none; color: var(--color-text-secondary);
@@ -186,18 +186,42 @@
         }
         .search-btn-round:hover { transform: translateY(-50%) scale(1.15); background: #ff3333; }
 
+        /* --- SUGERENCIAS DE BUSQUEDA (AUTOSUGGEST) --- */
+        .suggestions-box {
+            position: absolute;
+            top: 110%; left: 0; width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 15px; overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+            z-index: 2000; display: none;
+            animation: fadeInSugg 0.2s ease;
+        }
+        @keyframes fadeInSugg { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .suggestion-item {
+            padding: 12px 20px; color: #ddd; font-size: 0.9rem; cursor: pointer;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: background 0.1s; display: flex; align-items: center; gap: 12px;
+        }
+        .suggestion-item:last-child { border-bottom: none; }
+        .suggestion-item:hover, .suggestion-item.selected { background: rgba(255, 255, 255, 0.1); color: white; }
+        .sugg-icon { width: 16px; height: 16px; opacity: 0.6; fill: currentColor; }
+        .sugg-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
         /* ==========================================================================
            5. HERO SECTION
            ========================================================================== */
         .hero-section {
-            padding: 6rem 2rem 3rem; text-align: center; position: relative;
+            padding: 6rem 2rem 4rem; text-align: center; position: relative;
         }
 
         .hero-overline {
-            display: block; font-family: var(--font-heading); font-size: 0.75rem;
+            display: block; font-family: var(--font-heading); font-size: 0.85rem;
             color: var(--color-accent-light); text-transform: uppercase;
             letter-spacing: 6px; margin-bottom: 1.5rem; font-weight: 700;
-            opacity: 0; animation: fadeDown 0.8s var(--ease-elegant) forwards;
+            opacity: 0; animation: fadeInUp 1s var(--ease-elegant) forwards;
         }
         
         .hero-overline a { color: inherit; text-decoration: none; transition: 0.3s; }
@@ -228,11 +252,11 @@
         .divider-line {
             width: 1px; height: 80px; 
             background: linear-gradient(to bottom, transparent, var(--color-accent-main), transparent);
-            margin: 4rem auto 0; opacity: 0; animation: fadeInDivider 1.5s 0.8s forwards;
+            margin: 4rem auto; opacity: 0; animation: fadeIn 1.5s 0.6s forwards;
         }
 
         /* ==========================================================================
-           6. CONTROLES DE PÁGINA
+           6. CONTROLES DE PAGINA
            ========================================================================== */
         .controls-panel {
             max-width: 1440px; margin: 0 auto 3rem; padding: 0 2rem;
@@ -403,7 +427,7 @@
         .highlight { background: rgba(179, 0, 0, 0.25); color: white; padding: 0 3px; border-radius: 3px; }
 
         /* ==========================================================================
-           8. MODAL DE VISTA RÁPIDA
+           8. MODAL DE VISTA RAPIDA
            ========================================================================== */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -504,18 +528,79 @@
         @keyframes zoomInHero { from { opacity: 0; transform: scale(0.95) translateY(20px); filter: blur(10px); } to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Responsive */
-        @media (max-width: 1200px) { .artist-grid { grid-template-columns: repeat(3, 1fr); } }
-        @media (max-width: 992px) { .artist-grid { grid-template-columns: repeat(2, 1fr); } }
+        /* ==========================================================================
+           10. RESPONSIVIDAD MOVIL (ADAPTIVE SYSTEM - MINIATURE MODE)
+           ========================================================================== */
+        @media (max-width: 1200px) { 
+            .artist-grid { grid-template-columns: repeat(3, 1fr); }
+            .navbar { padding: 15px 5%; height: auto; flex-direction: column; gap: 15px; }
+            .nav-menu { width: 100%; justify-content: center; margin: 5px 0; }
+            .header-search { width: 100%; max-width: 400px; }
+        }
+        
+        @media (max-width: 992px) { 
+            .artist-grid { grid-template-columns: repeat(2, 1fr); } 
+            .controls-panel { flex-direction: column; gap: 20px; }
+            .local-search-box { width: 100%; max-width: 100%; }
+            .filter-group { width: 100%; justify-content: center; }
+        }
+        
         @media (max-width: 768px) {
-            .navbar { padding: 1rem 1.5rem; } .nav-menu { display: none; }
-            .hero-title { font-size: 2.8rem; }
-            .controls-panel { flex-direction: column; gap: 15px; }
-            .local-search-box { width: 100%; }
-            .artist-grid { grid-template-columns: repeat(1, 1fr); gap: 1.5rem; }
-            .card { padding: 2rem 1.5rem; min-height: 350px; }
-            .img-container { width: 160px; height: 160px; }
-            .modal-window { padding: 2rem; width: 95%; }
+            .navbar { padding: 10px 15px; }
+            .brand-wrapper { margin-bottom: 5px; }
+            .brand-text { font-size: 1.2rem; }
+            .nav-link { font-size: 0.7rem; letter-spacing: 0.5px; }
+            
+            .hero-title { font-size: 2.5rem; }
+            .hero-description { font-size: 0.9rem; padding: 0 5px; }
+            .hero-overline { font-size: 0.65rem; letter-spacing: 3px; }
+            
+            .gallery-container { padding: 0 10px; margin-bottom: 3rem; }
+            
+            /* --- MODO MINIATURA: 3 COLUMNAS EN MOVIL --- */
+            .artist-grid { 
+                grid-template-columns: repeat(3, 1fr); /* 3 Columnas */
+                gap: 8px; /* Espacio reducido */
+            }
+            
+            .card { 
+                min-height: auto; 
+                padding: 10px 5px; 
+                border-radius: 12px;
+            }
+            
+            .img-container { 
+                width: 60px; height: 60px; /* Avatar miniatura */
+                margin-bottom: 10px;
+                padding: 2px;
+            }
+            
+            .name-btn {
+                font-size: 0.7rem; /* Nombre muy pequeno */
+                margin-bottom: 5px;
+                letter-spacing: 0;
+            }
+            
+            .artist-meta {
+                font-size: 0.5rem;
+                letter-spacing: 1px;
+                margin-bottom: 10px;
+            }
+            
+            .stats-container { display: none; /* Ocultamos estadisticas detalladas por espacio */ }
+            
+            .quick-view-btn {
+                width: 24px; height: 24px;
+                top: 5px; right: 5px;
+            }
+            .quick-view-btn svg { width: 12px; height: 12px; }
+            
+            .modal-window { width: 95%; padding: 1.5rem; }
+            .modal-title { font-size: 1.5rem; }
+            
+            .toast-container { right: 50%; transform: translateX(50%); bottom: 20px; width: 90%; }
+            .toast { width: 100%; justify-content: center; transform: translateY(100%); }
+            .toast.show { transform: translateY(0); }
         }
     </style>
 </head>
@@ -524,7 +609,11 @@
     <div class="ambient-backdrop"></div>
     <div class="dot-pattern"></div>
     <div class="noise-texture"></div>
-    <div class="star-field" aria-hidden="true"><div class="stars-1"></div><div class="stars-2"></div><div class="stars-3"></div></div>
+    <div class="star-field" aria-hidden="true">
+        <div class="stars-1"></div>
+        <div class="stars-2"></div>
+        <div class="stars-3"></div>
+    </div>
 
     <div class="toast-container" id="toastContainer"></div>
 
@@ -538,27 +627,30 @@
         <ul class="nav-menu">
             <li><a href="/" class="nav-link">Inicio</a></li>
             <li><a href="/artistas" class="nav-link">Descubrir</a></li>
-            <li><a href="/generos" class="nav-link active">Géneros</a></li>
+            <li><a href="/generos" class="nav-link active">Generos</a></li>
         </ul>
-        <form class="header-search" method="POST" action="/">
-            <input type="text" name="artista" placeholder="Busca tu sonido..." aria-label="Buscar">
+        <form class="header-search" method="POST" action="/" id="searchForm">
+            <input type="text" name="artista" id="searchInput" placeholder="Busca tu sonido..." aria-label="Buscar" autocomplete="off">
             <button type="submit" class="search-btn-round" aria-label="Buscar">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             </button>
+            
+            <!-- CONTENEDOR DE SUGERENCIAS (AUTOSUGGEST) -->
+            <div id="searchSuggestions" class="suggestions-box"></div>
         </form>
     </nav>
 
     <header class="hero-section">
         <div class="hero-overline">
             <a href="/" style="color:inherit; text-decoration:none;">INICIO</a> / 
-            <a href="/generos" style="color:inherit; text-decoration:none;">GÉNEROS</a> / 
+            <a href="/generos" style="color:inherit; text-decoration:none;">GENEROS</a> / 
             <span style="color:white; font-weight:800;">{{ genero|upper }}</span>
         </div>
         
         <h1 class="hero-title">{{ genero }}</h1>
         <p class="hero-description">
-            Artistas destacados y referentes mundiales del género. 
-            Selección curada por relevancia.
+            Artistas destacados y referentes mundiales del genero. 
+            Seleccion curada por relevancia.
         </p>
         <div class="divider-line"></div>
     </header>
@@ -570,7 +662,6 @@
                 <input type="text" id="filterInput" class="local-search-input" placeholder="Filtrar en esta lista..." autocomplete="off">
             </div>
             <div class="filter-group">
-                {# CORRECCIÓN CRÍTICA: Cambiado .filter-btn por .filter-pill para aplicar estilos CSS #}
                 <button class="filter-pill" data-sort="name" onclick="app.sort('name', this)">A - Z</button>
                 <button class="filter-pill active" data-sort="pop" onclick="app.sort('pop', this)">Relevancia</button>
             </div>
@@ -590,7 +681,7 @@
                      data-pop="{{ a_pop }}"
                      style="animation: fadeInUp 0.8s cubic-bezier(0.19,1,0.22,1) forwards; --card-delay: {{ anim_delay }}s; animation-delay: var(--card-delay);">
                     
-                    <button class="quick-view-btn js-quick-view" aria-label="Vista Rápida" onclick="app.openModal('{{ a_name }}', '{{ a_pop }}', '{{ a_img }}')">
+                    <button class="quick-view-btn js-quick-view" aria-label="Vista Rapida" onclick="app.openModal('{{ a_name }}', '{{ a_pop }}', '{{ a_img }}')">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                     </button>
 
@@ -632,8 +723,8 @@
                 <div class="error-state">
                     <div class="state-icon">⚠️</div>
                     <h3>No hay resultados</h3>
-                    <p>No pudimos encontrar artistas para este género en este momento.</p>
-                    <a href="/generos" style="color:var(--color-accent-vivid); text-decoration:underline; margin-top:20px; display:inline-block;">Volver a Géneros</a>
+                    <p>No pudimos encontrar artistas para este genero en este momento.</p>
+                    <a href="/generos" style="color:var(--color-accent-vivid); text-decoration:underline; margin-top:20px; display:inline-block;">Volver a Generos</a>
                 </div>
             {% endif %}
         </div>
@@ -658,27 +749,27 @@
             <h2 class="modal-title modal-t" id="modalTitle">Artist Name</h2>
             <span class="modal-subtitle">PERFIL DE ARTISTA</span>
             
-            <p class="modal-text">
+            <p class="modal-text" style="color:#aaa; margin-bottom:20px;">
                 Popularidad Global Detectada: <strong style="color:var(--color-accent-light)" id="modalPopVal">0%</strong>
-                <br>Haz clic abajo para acceder al análisis completo.
+                <br>Haz clic abajo para acceder al analisis completo.
             </p>
             
             <form action="/" method="POST">
                 <input type="hidden" name="artista" id="modalInput">
-                <button type="submit" class="modal-action-btn modal-btn">Ver Detalles Completos</button>
+                <button type="submit" class="modal-btn">Ver Detalles Completos</button>
             </form>
         </div>
     </div>
 
     <div id="contextMenu">
-        <div class="ctx-item" onclick="app.showToast('Añadido a favoritos')">Agregar a Favoritos</div>
+        <div class="ctx-item" onclick="app.showToast('Anadido a favoritos')">Agregar a Favoritos</div>
         <div class="ctx-item" onclick="app.showToast('Enlace copiado al portapapeles')">Copiar Enlace</div>
         <div class="ctx-divider"></div>
         <div class="ctx-item" style="color:#ff5555;" onclick="app.showToast('Reporte enviado')">Reportar Problema</div>
     </div>
 
     <footer>
-        <p class="footer-text">© {{ year }} Legatum Music System. Imperial Edition.</p>
+        <p class="footer-text">© {{ year }} Legatum Music System. Enterprise Edition v12.0.</p>
     </footer>
 
     <script>
@@ -697,10 +788,8 @@
 
             init: function() {
                 this.state.items = Array.from(document.querySelectorAll('.js-item'));
-                
                 this.els.input.addEventListener('keyup', (e) => this.filter(e.target.value));
 
-                // Cambio aquí: usando .filter-pill para consistencia
                 document.querySelectorAll('.filter-pill').forEach(btn => {
                     btn.addEventListener('click', () => this.sort(btn.dataset.sort, btn));
                 });
@@ -730,18 +819,16 @@
             handleImageError: function(img, url) { img.onerror=null; img.src=url; img.classList.add('loaded'); },
 
             filter: function(term) {
-                const val = term.toLowerCase().trim();
+                const normalize = (s) => s.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                const val = normalize(term);
                 let count = 0;
                 this.state.items.forEach(item => {
                     const nameBtn = item.querySelector('.js-name');
                     const name = item.dataset.name;
-                    if (name.toLowerCase().includes(val)) {
+                    if (normalize(name).includes(val)) {
                         item.style.display = 'flex';
                         count++;
-                        if (val) {
-                            const re = new RegExp(`(${val})`, 'gi');
-                            nameBtn.innerHTML = name.replace(re, '<span class="highlight">$1</span>');
-                        } else { nameBtn.innerText = name; }
+                        nameBtn.innerText = name;
                     } else {
                         item.style.display = 'none';
                         nameBtn.innerText = name;
@@ -751,13 +838,12 @@
             },
 
             sort: function(type, btn) {
-                // Asegúrate de usar .filter-pill aquí también para los botones
                 document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 const sorted = this.state.items.sort((a, b) => {
                     const nA = a.dataset.name; const nB = b.dataset.name;
                     const pA = parseInt(a.dataset.pop); const pB = parseInt(b.dataset.pop);
-                    if (type === 'name') return nA.localeCompare(nB);
+                    if (type === 'name') return nA.localeCompare(nB, 'es', { sensitivity: 'base' });
                     return pB - pA;
                 });
                 sorted.forEach(el => this.els.grid.appendChild(el));
@@ -799,6 +885,97 @@
 
         document.addEventListener('DOMContentLoaded', () => app.init());
         document.addEventListener('keydown', (e) => { if(e.key === 'Escape') app.closeModal(); });
+
+        // --- AUTOSUGGEST LOGIC (Estilo YouTube) ---
+        const searchInput = document.getElementById('searchInput');
+        const suggestionsBox = document.getElementById('searchSuggestions');
+        let debounceTimer;
+        let currentFocus = -1;
+
+        searchInput.addEventListener('input', function(e) {
+            const val = this.value;
+            clearTimeout(debounceTimer);
+            
+            if (!val || val.length < 2) {
+                suggestionsBox.style.display = 'none';
+                return;
+            }
+
+            debounceTimer = setTimeout(() => {
+                fetch(`/autosuggest?q=${encodeURIComponent(val)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        suggestionsBox.innerHTML = '';
+                        currentFocus = -1;
+                        
+                        if (data.length > 0) {
+                            data.forEach(item => {
+                                const div = document.createElement('div');
+                                div.className = 'suggestion-item';
+                                
+                                let icon = '';
+                                if(item.type === 'artist') {
+                                    icon = '<svg class="sugg-icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>';
+                                } else {
+                                    icon = '<svg class="sugg-icon" viewBox="0 0 24 24"><path d="M12 3v9.28c-.47-.17-.97-.28-1.5-.28C8.01 12 6 14.01 6 16.5S8.01 21 10.5 21c2.31 0 4.2-1.75 4.45-4H15V6h4V3h-7z"/></svg>';
+                                }
+                                
+                                div.innerHTML = `${icon} <span class="sugg-text">${item.text}</span>`;
+                                
+                                div.addEventListener('click', function() {
+                                    searchInput.value = item.text;
+                                    suggestionsBox.style.display = 'none';
+                                    document.getElementById('searchForm').submit();
+                                });
+                                
+                                suggestionsBox.appendChild(div);
+                            });
+                            suggestionsBox.style.display = 'block';
+                        } else {
+                            suggestionsBox.style.display = 'none';
+                        }
+                    })
+                    .catch(err => console.error("Error en autosuggest", err));
+            }, 300);
+        });
+
+        searchInput.addEventListener('keydown', function(e) {
+            const items = suggestionsBox.getElementsByClassName('suggestion-item');
+            if (e.key === 'ArrowDown') {
+                currentFocus++;
+                addActive(items);
+            } else if (e.key === 'ArrowUp') {
+                currentFocus--;
+                addActive(items);
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                if (currentFocus > -1 && items) {
+                    items[currentFocus].click();
+                } else {
+                    document.getElementById('searchForm').submit();
+                }
+            }
+        });
+
+        function addActive(items) {
+            if (!items) return false;
+            removeActive(items);
+            if (currentFocus >= items.length) currentFocus = 0;
+            if (currentFocus < 0) currentFocus = (items.length - 1);
+            items[currentFocus].classList.add('selected');
+        }
+
+        function removeActive(items) {
+            for (let i = 0; i < items.length; i++) {
+                items[i].classList.remove('selected');
+            }
+        }
+
+        document.addEventListener('click', function(e) {
+            if (e.target !== searchInput && e.target !== suggestionsBox) {
+                suggestionsBox.style.display = 'none';
+            }
+        });
     </script>
 </body>
 </html>

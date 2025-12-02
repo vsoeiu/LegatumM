@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Explora el espectro musical por géneros en Legatum.">
+    <meta name="description" content="Explora el espectro musical por generos en Legatum.">
     <meta name="theme-color" content="#020202">
-    <title>Géneros | Legatum</title>
+    <title>Generos | Legatum</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,7 +31,7 @@
             --gold-main: #D4AF37;
             --gold-light: #FADD75;
 
-            /* TIPOGRAFÍA */
+            /* TIPOGRAFIA */
             --color-text-primary: #ffffff;
             --color-text-secondary: #a3a3a3;
             --color-text-muted: #555555;
@@ -51,7 +51,7 @@
             --duration-fast: 0.3s;
         }
 
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
         body {
             background-color: var(--color-bg-master); color: var(--color-text-primary);
             font-family: var(--font-body); min-height: 100vh; display: flex; flex-direction: column;
@@ -69,7 +69,7 @@
            ========================================================================== */
         .navbar {
             position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center;
-            /* Altura y padding ajustados para diseño delgado */
+            /* Altura y padding ajustados para diseno delgado */
             padding: 0 5%;
             height: 70px; 
             background: rgba(2, 2, 2, 0.95); backdrop-filter: blur(20px);
@@ -88,9 +88,9 @@
 
         /* Texto LEGATUM Dorado */
         .brand-text { 
-            font-family: 'Cinzel', serif; /* Fuente cambiada */
+            font-family: 'Cinzel', serif; 
             font-weight: 700;
-            font-size: 1.6rem; /* Tamaño ajustado */
+            font-size: 1.6rem; 
             letter-spacing: 2px;
             text-transform: uppercase;
             
@@ -104,7 +104,7 @@
             text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
         
-        /* Menú Limpio */
+        /* Menu Limpio */
         .nav-menu { display: flex; gap: 30px; list-style: none; padding: 0; margin: 0; }
         .nav-link { 
             text-decoration: none; color: var(--color-text-secondary); font-size: 0.85rem; 
@@ -114,7 +114,7 @@
         .nav-link:hover, .nav-link.active { color: var(--color-text-primary); }
         .nav-link::after {
             content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px;
-            background: var(--gold-main); /* Subrayado dorado */
+            background: var(--gold-main); 
             transition: width var(--duration-fast) var(--ease-elegant);
         }
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
@@ -142,6 +142,30 @@
         }
         .search-btn-round:hover { transform: translateY(-50%) scale(1.15); background: #ff3333; }
 
+        /* --- SUGERENCIAS DE BUSQUEDA (AUTOSUGGEST) --- */
+        .suggestions-box {
+            position: absolute;
+            top: 110%; left: 0; width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 15px; overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+            z-index: 2000; display: none;
+            animation: fadeInSugg 0.2s ease;
+        }
+        @keyframes fadeInSugg { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .suggestion-item {
+            padding: 12px 20px; color: #ddd; font-size: 0.9rem; cursor: pointer;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: background 0.1s; display: flex; align-items: center; gap: 12px;
+        }
+        .suggestion-item:last-child { border-bottom: none; }
+        .suggestion-item:hover, .suggestion-item.selected { background: rgba(255, 255, 255, 0.1); color: white; }
+        .sugg-icon { width: 16px; height: 16px; opacity: 0.6; fill: currentColor; }
+        .sugg-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
         /* ==========================================================================
            3. CONTENIDO PRINCIPAL
            ========================================================================== */
@@ -149,8 +173,8 @@
         .hero-overline { display: block; font-family: var(--font-heading); font-size: 0.85rem; color: var(--color-accent-vivid); text-transform: uppercase; letter-spacing: 4px; margin-bottom: 1rem; font-weight: 700; }
         
         .hero-title { 
-            font-family: 'Cinzel', serif; /* Fuente cambiada */
-            font-size: 4.5rem; /* Tamaño ajustado */
+            font-family: 'Cinzel', serif;
+            font-size: 4.5rem; 
             font-weight: 700; 
             margin: 0; letter-spacing: 2px; 
             
@@ -178,7 +202,7 @@
         .genre-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
 
         /* ==========================================================================
-           4. TARJETA DE GÉNERO
+           4. TARJETA DE GENERO
            ========================================================================== */
         .genre-card {
             position: relative; height: 320px; border-radius: 20px; overflow: hidden; 
@@ -186,7 +210,7 @@
             transition: all 0.4s var(--ease-smooth); 
             opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s forwards;
             animation-delay: var(--card-delay, 0s);
-            display: block; /* Aseguramos que sea un bloque para las animaciones */
+            display: block; 
         }
 
         .genre-card:hover {
@@ -213,16 +237,66 @@
         @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
         .no-results { display: none; text-align: center; padding: 50px; color: #777; grid-column: 1/-1; }
 
-        /* Responsive */
-        @media (max-width: 1200px) { .genre-grid { grid-template-columns: repeat(3, 1fr); } }
-        @media (max-width: 900px) { .genre-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 600px) { .genre-grid { grid-template-columns: 1fr; } .hero-title { font-size: 3rem; } }
+        /* ==========================================================================
+           5. RESPONSIVIDAD MOVIL (ADAPTIVE SYSTEM - MINIATURE MODE)
+           ========================================================================== */
+        @media (max-width: 1200px) { 
+            .genre-grid { grid-template-columns: repeat(3, 1fr); } 
+            .navbar { padding: 15px 5%; height: auto; flex-direction: column; gap: 15px; }
+            .nav-menu { width: 100%; justify-content: center; margin: 5px 0; }
+            .header-search { width: 100%; max-width: 400px; }
+        }
+        
+        @media (max-width: 992px) { 
+            .genre-grid { grid-template-columns: repeat(2, 1fr); } 
+        }
+        
+        @media (max-width: 768px) {
+            .navbar { padding: 10px 15px; }
+            .brand-wrapper { margin-bottom: 5px; }
+            .brand-text { font-size: 1.2rem; }
+            .nav-link { font-size: 0.7rem; letter-spacing: 0.5px; }
+            
+            .hero-title { font-size: 2.5rem; }
+            .hero-overline { font-size: 0.65rem; }
+            
+            .controls-panel { margin-bottom: 2rem; }
+            .local-search-box { width: 100%; }
+
+            /* --- MODO MINIATURA: 3 COLUMNAS EN MOVIL --- */
+            .genre-grid { 
+                grid-template-columns: repeat(3, 1fr); /* 3 Columnas */
+                gap: 8px; /* Espacio reducido */
+            } 
+            
+            .genre-card { 
+                height: 100px; /* Tarjetas mas pequenas */
+                border-radius: 12px;
+            }
+
+            .card-info {
+                padding: 5px;
+                justify-content: center;
+                display: flex;
+                align-items: center;
+                height: 100%;
+                bottom: auto; top: 0; /* Centrar contenido */
+            }
+
+            .genre-name {
+                font-size: 0.7rem;
+                text-align: center;
+                letter-spacing: 0;
+            }
+        }
     </style>
 </head>
 <body>
 
     <div class="ambient-backdrop"></div>
     <div class="star-field" aria-hidden="true"><div class="stars-1"></div></div>
+
+    {% set placeholder = placeholder_global if placeholder_global is defined else 'https://cdn.pixabay.com/photo/2018/04/18/18/56/user-3331257_1280.png' %}
 
     <nav class="navbar">
         <a href="/" class="brand">
@@ -232,19 +306,22 @@
         <ul class="nav-menu">
             <li><a href="/" class="nav-link">Inicio</a></li>
             <li><a href="/artistas" class="nav-link">Descubrir</a></li>
-            <li><a href="/generos" class="nav-link active">Géneros</a></li>
+            <li><a href="/generos" class="nav-link active">Generos</a></li>
         </ul>
-        <form class="header-search" method="POST" action="/">
-            <input type="text" name="artista" placeholder="Busca tu sonido..." aria-label="Buscar">
+        <form class="header-search" method="POST" action="/" id="searchForm">
+            <input type="text" name="artista" id="searchInput" placeholder="Busca tu sonido..." aria-label="Buscar" autocomplete="off">
             <button type="submit" class="search-btn-round" aria-label="Buscar">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
             </button>
+            
+            <!-- CONTENEDOR DE SUGERENCIAS (AUTOSUGGEST) -->
+            <div id="searchSuggestions" class="suggestions-box"></div>
         </form>
     </nav>
 
     <header class="hero-section">
         <span class="hero-overline">ESPECTRO SONORO</span>
-        <h1 class="hero-title">GÉNEROS MAESTROS</h1>
+        <h1 class="hero-title">GENEROS MAESTROS</h1>
         <div class="divider-line"></div>
     </header>
 
@@ -252,23 +329,23 @@
         <section class="controls-panel">
             <div class="local-search-box">
                 <svg class="local-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                <input type="text" id="filterInput" class="local-search-input" placeholder="Filtrar géneros..." autocomplete="off">
+                <input type="text" id="filterInput" class="local-search-input" placeholder="Filtrar generos..." autocomplete="off">
             </div>
-            </section>
+        </section>
 
         <div id="genreGrid" class="genre-grid">
             {% if generos %}
                 {% for gen in generos %}
                 <a href="/generos/{{ gen.nombre }}" 
-                   class="genre-card genre-item" 
-                   data-name="{{ gen.nombre | replace('RnB', 'R&B') }}"
-                   style="--card-delay: {{ loop.index0 * 0.1 }}s;">
+                    class="genre-card genre-item" 
+                    data-name="{{ gen.nombre | replace('RnB', 'R&B') }}"
+                    style="--card-delay: {{ loop.index0 * 0.1 }}s;">
                     
                     <img src="{{ gen.imagen }}" 
-                         alt="{{ gen.nombre }}" 
-                         class="genre-img" 
-                         loading="lazy"
-                         onerror="this.src='https://cdn.pixabay.com/photo/2018/04/18/18/56/user-3331257_1280.png'">
+                        alt="{{ gen.nombre }}" 
+                        class="genre-img" 
+                        loading="lazy"
+                        onerror="this.src='{{ placeholder }}'">
                     
                     <div class="card-overlay"></div>
 
@@ -278,29 +355,122 @@
                 </a>
                 {% endfor %}
             {% else %}
-                <div class="no-results" style="display:block;"><h3>No hay géneros disponibles.</h3></div>
+                <div class="no-results" style="display:block;"><h3>No hay generos disponibles.</h3></div>
             {% endif %}
         </div>
         <div id="noResults" class="no-results"><h3>Sin coincidencias.</h3></div>
     </main>
 
-    <footer><p>© 2025 Legatum Music System.</p></footer>
+    <footer><p>© 2025 Legatum Music System. Enterprise Edition v12.0.</p></footer>
 
     <script>
-        // Funcionalidad del Buscador
+        // 1. Funcionalidad del Buscador Local
         const input = document.getElementById('filterInput');
         const items = Array.from(document.querySelectorAll('.genre-item'));
         const noRes = document.getElementById('noResults');
 
         input.addEventListener('keyup', (e) => {
-            const val = e.target.value.toLowerCase();
+            const normalize = (s) => s.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            const val = normalize(e.target.value);
             let count = 0;
+            
             items.forEach(item => {
-                if(item.dataset.name.toLowerCase().includes(val)) {
+                if(normalize(item.dataset.name).includes(val)) {
                     item.style.display = 'block'; count++;
                 } else { item.style.display = 'none'; }
             });
             noRes.style.display = (count === 0) ? 'block' : 'none';
+        });
+
+        // 2. AUTOSUGGEST LOGIC (Estilo YouTube)
+        const searchInput = document.getElementById('searchInput');
+        const suggestionsBox = document.getElementById('searchSuggestions');
+        let debounceTimer;
+        let currentFocus = -1;
+
+        searchInput.addEventListener('input', function(e) {
+            const val = this.value;
+            clearTimeout(debounceTimer);
+            
+            if (!val || val.length < 2) {
+                suggestionsBox.style.display = 'none';
+                return;
+            }
+
+            debounceTimer = setTimeout(() => {
+                fetch(`/autosuggest?q=${encodeURIComponent(val)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        suggestionsBox.innerHTML = '';
+                        currentFocus = -1;
+                        
+                        if (data.length > 0) {
+                            data.forEach(item => {
+                                const div = document.createElement('div');
+                                div.className = 'suggestion-item';
+                                
+                                let icon = '';
+                                if(item.type === 'artist') {
+                                    icon = '<svg class="sugg-icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>';
+                                } else {
+                                    icon = '<svg class="sugg-icon" viewBox="0 0 24 24"><path d="M12 3v9.28c-.47-.17-.97-.28-1.5-.28C8.01 12 6 14.01 6 16.5S8.01 21 10.5 21c2.31 0 4.2-1.75 4.45-4H15V6h4V3h-7z"/></svg>';
+                                }
+                                
+                                div.innerHTML = `${icon} <span class="sugg-text">${item.text}</span>`;
+                                
+                                div.addEventListener('click', function() {
+                                    searchInput.value = item.text;
+                                    suggestionsBox.style.display = 'none';
+                                    document.getElementById('searchForm').submit();
+                                });
+                                
+                                suggestionsBox.appendChild(div);
+                            });
+                            suggestionsBox.style.display = 'block';
+                        } else {
+                            suggestionsBox.style.display = 'none';
+                        }
+                    })
+                    .catch(err => console.error("Error en autosuggest", err));
+            }, 300);
+        });
+
+        searchInput.addEventListener('keydown', function(e) {
+            const items = suggestionsBox.getElementsByClassName('suggestion-item');
+            if (e.key === 'ArrowDown') {
+                currentFocus++;
+                addActive(items);
+            } else if (e.key === 'ArrowUp') {
+                currentFocus--;
+                addActive(items);
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                if (currentFocus > -1 && items) {
+                    items[currentFocus].click();
+                } else {
+                    document.getElementById('searchForm').submit();
+                }
+            }
+        });
+
+        function addActive(items) {
+            if (!items) return false;
+            removeActive(items);
+            if (currentFocus >= items.length) currentFocus = 0;
+            if (currentFocus < 0) currentFocus = (items.length - 1);
+            items[currentFocus].classList.add('selected');
+        }
+
+        function removeActive(items) {
+            for (let i = 0; i < items.length; i++) {
+                items[i].classList.remove('selected');
+            }
+        }
+
+        document.addEventListener('click', function(e) {
+            if (e.target !== searchInput && e.target !== suggestionsBox) {
+                suggestionsBox.style.display = 'none';
+            }
         });
     </script>
 </body>
